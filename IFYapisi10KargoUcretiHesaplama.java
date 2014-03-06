@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class IFYapisi10KargoUcretiHesaplama {
+public class IfYapisi10KargoUcretiHesaplama {
 	public static void main(String[] args) {
 
 		Scanner veri = new Scanner(System.in);
