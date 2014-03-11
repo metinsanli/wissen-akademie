@@ -11,7 +11,7 @@ public class Temel5Welcome1
 
 		System.out.print("Welcome to ");
 		System.out.println("World!");
-		
+
 		System.out.println("Welcome\nto\nJava\nPrograming!");
 
 	}

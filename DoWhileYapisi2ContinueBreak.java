@@ -16,8 +16,7 @@ public class DoWhileYapisi2ContinueBreak {
 			System.out.print("Pozitif ve cift sayi girin >");
 			N = veri.nextInt();
 			if (N < 0) {
-				System.out
-						.println("Eksi bir deger girdiniz donguden cikiyorum..");
+				System.out.println("Eksi bir deger girdiniz donguden cikiyorum..");
 				break;
 			} else if (N % 2 != 0) {
 				System.out.println("Cift sayi girmediniz! saymiyorum..");

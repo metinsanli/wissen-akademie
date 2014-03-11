@@ -18,49 +18,96 @@ public class IfYapisi10SigortaOdemesi {
 
 		if (yas <= 60 && yas >= 51) { // 51 - 60 YAS ARASI
 			if (istIcDis == "i") { // ISTANBUL IC
-				if ((ayaktaYatakli == "a") && (isDurumu == "c")) {odenecekTutar=0;}
-				if ((ayaktaYatakli == "a") && (isDurumu == "b")) {odenecekTutar=0;}
-				if ((ayaktaYatakli == "y") && (isDurumu == "c")) {odenecekTutar=0;}
-				if ((ayaktaYatakli == "y") && (isDurumu == "b")) {odenecekTutar=0;}
- 
-				} else if (istIcDis == "d") {   // ISTANBUL DIS
-					if ((ayaktaYatakli == "a") && (isDurumu == "c")) {odenecekTutar=0;}
-					if ((ayaktaYatakli == "a") && (isDurumu == "b")) {odenecekTutar=0;}
-					if ((ayaktaYatakli == "y") && (isDurumu == "c")) {odenecekTutar=0;}
-					if ((ayaktaYatakli == "y") && (isDurumu == "b")) {odenecekTutar=775;}
-				} // end if istanbul
-			} // end if 51-60 yas
-		
+				if ((ayaktaYatakli == "a") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "a") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+
+			} else if (istIcDis == "d") { // ISTANBUL DIS
+				if ((ayaktaYatakli == "a") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "a") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "b")) {
+					odenecekTutar = 775;
+				}
+			} // end if istanbul
+		} // end if 51-60 yas
+
 		if (yas <= 50 && yas >= 36) { // 36 - 50 YAS ARASI
 			if (istIcDis == "i") {
-				if ((ayaktaYatakli == "a") && (isDurumu == "c")) {odenecekTutar=0;}
-				if ((ayaktaYatakli == "a") && (isDurumu == "b")) {odenecekTutar=0;}
-				if ((ayaktaYatakli == "y") && (isDurumu == "c")) {odenecekTutar=0;}
-				if ((ayaktaYatakli == "y") && (isDurumu == "b")) {odenecekTutar=0;}
-				 // END ISTANBUL IC
-				} else if (istIcDis == "d") { 
-					if ((ayaktaYatakli == "a") && (isDurumu == "c")) {odenecekTutar=0;}
-					if ((ayaktaYatakli == "a") && (isDurumu == "b")) {odenecekTutar=0;}
-					if ((ayaktaYatakli == "y") && (isDurumu == "c")) {odenecekTutar=0;}
-					if ((ayaktaYatakli == "y") && (isDurumu == "b")) {odenecekTutar=0;}
-				}  // END ISTANBUL DIS
-			} // END 36 - 50 YAS ARASI
-		
+				if ((ayaktaYatakli == "a") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "a") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+				// END ISTANBUL IC
+			} else if (istIcDis == "d") {
+				if ((ayaktaYatakli == "a") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "a") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+			} // END ISTANBUL DIS
+		} // END 36 - 50 YAS ARASI
+
 		if (yas <= 35 && yas >= 18) { // 18 - 35 YAS ARASI
 			if (istIcDis == "i") {
-				if ((ayaktaYatakli == "a") && (isDurumu == "c")) {odenecekTutar=0;}
-				if ((ayaktaYatakli == "a") && (isDurumu == "b")) {odenecekTutar=0;}
-				if ((ayaktaYatakli == "y") && (isDurumu == "c")) {odenecekTutar=0;}
-				if ((ayaktaYatakli == "y") && (isDurumu == "b")) {odenecekTutar=0;}
-				 // END ISTANBUL IC
-				} else if (istIcDis == "d") { 
-					if ((ayaktaYatakli == "a") && (isDurumu == "c")) {odenecekTutar=0;}
-					if ((ayaktaYatakli == "a") && (isDurumu == "b")) {odenecekTutar=0;}
-					if ((ayaktaYatakli == "y") && (isDurumu == "c")) {odenecekTutar=0;}
-					if ((ayaktaYatakli == "y") && (isDurumu == "b")) {odenecekTutar=0;}
-				}  // END ISTANBUL DIS
-			} // END 18 - 35 YAS ARASI
-
+				if ((ayaktaYatakli == "a") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "a") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+				// END ISTANBUL IC
+			} else if (istIcDis == "d") {
+				if ((ayaktaYatakli == "a") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "a") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "c")) {
+					odenecekTutar = 0;
+				}
+				if ((ayaktaYatakli == "y") && (isDurumu == "b")) {
+					odenecekTutar = 0;
+				}
+			} // END ISTANBUL DIS
+		} // END 18 - 35 YAS ARASI
 
 		System.out.printf("ODENECEK SIGORTA TUTARI = %d TL.\n", odenecekTutar);
 		sayiGiris.close();

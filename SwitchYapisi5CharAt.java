@@ -37,6 +37,6 @@ public class SwitchYapisi5CharAt {
 
 		System.out.println(sonuc);
 		veri.close();
-		
+
 	} // end main
 } // end class

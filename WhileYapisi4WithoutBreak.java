@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class WhileYapisi4WithoutBreak {
 	public static void main(String[] args) {
-		
+
 		Scanner veri = new Scanner(System.in);
 		int sayi = 0;
 

@@ -13,10 +13,9 @@ public class WhileYapisi2SayiBilmece {
 		while (puan != 0) {
 			System.out.printf("Puaniniz %d : Tahmin girin >", puan);
 			giris = veri.nextInt();
-			
+
 			if (sayi == giris) {
-				System.out.printf("%d Tebrikler bildiniz!! PUAN = %d\n", sayi,
-						puan);
+				System.out.printf("%d Tebrikler bildiniz!! PUAN = %d\n", sayi, puan);
 				break;
 			} else {
 				System.out.println("Malesef bilemediniz!");

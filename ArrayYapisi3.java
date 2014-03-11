@@ -1,8 +1,7 @@
 public class ArrayYapisi3 {
 
 	public static void main(String[] args) {
-		String[] arabalar = { "Opel", "Mercedes", "Volvo", "Totyota",
-				"Daihatsu", "Volkswagen" };
+		String[] arabalar = { "Opel", "Mercedes", "Volvo", "Totyota", "Daihatsu", "Volkswagen" };
 
 		System.out.println(arabalar[3]);
 		System.out.println(arabalar[0]);

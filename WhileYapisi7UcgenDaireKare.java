@@ -10,8 +10,7 @@ public class WhileYapisi7UcgenDaireKare {
 
 			switch (secim) {
 			case 1:
-				System.out
-						.printf("\n* Ucgen Alani Hesaplama Secildi.\n\nTaban Uzunlugu girin\t> ");
+				System.out.printf("\n* Ucgen Alani Hesaplama Secildi.\n\nTaban Uzunlugu girin\t> ");
 				deg1 = veri.nextDouble();
 				System.out.printf("Yukseklik girin\t\t> ");
 				deg2 = veri.nextDouble();
@@ -19,8 +18,7 @@ public class WhileYapisi7UcgenDaireKare {
 				break;
 
 			case 2:
-				System.out
-						.printf("\n* Daire Alani Hesaplama Secildi.\n\nPi degerini girin\t> ");
+				System.out.printf("\n* Daire Alani Hesaplama Secildi.\n\nPi degerini girin\t> ");
 				deg1 = veri.nextDouble();
 				System.out.printf("Yaricap girin\t\t> ");
 				deg2 = veri.nextDouble();
@@ -29,8 +27,7 @@ public class WhileYapisi7UcgenDaireKare {
 				break;
 
 			case 3:
-				System.out
-						.printf("\n* Kare Alani Hesaplama Secildi.\n\n1. Kenar uzunlugunu girin\t> ");
+				System.out.printf("\n* Kare Alani Hesaplama Secildi.\n\n1. Kenar uzunlugunu girin\t> ");
 				deg1 = veri.nextDouble();
 				System.out.printf("2. Kenar uzunlugunu girin\t\t> ");
 				deg2 = veri.nextDouble();
@@ -38,8 +35,7 @@ public class WhileYapisi7UcgenDaireKare {
 				break;
 			} // end switch
 
-			System.out
-					.printf("\n*** ALAN HESAPLAMA ***\n\nUcgen (1)\nDaire (2)\nKare  (3)\nCikis (0)\n\nLutfen seciminizi girin > ");
+			System.out.printf("\n*** ALAN HESAPLAMA ***\n\nUcgen (1)\nDaire (2)\nKare  (3)\nCikis (0)\n\nLutfen seciminizi girin > ");
 			secim = veri.nextInt();
 		} // end while
 

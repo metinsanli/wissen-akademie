@@ -27,7 +27,7 @@ public class IfYapisi3 {
 
 		toplam = maas + (maas * prim) + yardim;
 
-		System.out.printf("*****\n›sminiz\t\t= %s\nNet maasiniz\t= %f TL.", ad,	toplam);
+		System.out.printf("*****\n›sminiz\t\t= %s\nNet maasiniz\t= %f TL.", ad, toplam);
 
 		veri.close();
 	}
