@@ -25,20 +25,19 @@ public class MethodYapisi8BatirBank2 {
 
 			// EGER "0" GIRILMISE PROGRAMDAN CIK
 			if (musNo == 0) {
-				System.err.printf("Program kapatildi!");
+				System.out.printf("\nProgram kapatildi!");
 				System.exit(0);
 			}
 
 			// GIRILEN MUSTERI NO KAYITLARDA VARMI?
 			for (int sayac = 0; sayac < musteriNo.length; sayac++) {
-				System.out.println("buradayim!" + sayac + " " + musNo);
 				if (musteriNo[sayac] == musNo) {
 					// EGER VARSA ISLEM MENUSUNU GETIR
-
+					islemMenu = true;
 					while (islemMenu) { // MUSTERI ISLEM MENUSU
 						islemMenu = false;
 						System.out.printf("\nSn. %s ", musteriAdi[sayac]);
-						System.out.printf("yapmak istediginiz islemi secin >");
+						System.out.printf("yapmak istediginiz islemi secin > ");
 						System.out.printf("\n1 - Bakiye Goruntule\n2 - Para yatirma\n3 - Para cekme\n0 - Cikis");
 						System.out.printf("\nIslem secin (1/2/3/0) > ");
 						islem = sayiGir();
@@ -68,15 +67,15 @@ public class MethodYapisi8BatirBank2 {
 							break;
 						}
 					} // islem menu while
+
 					kayitKontrol = true;
 					break;
-				} // end if islem-menu
+				}
 			} // end ic for
 
 			// EGER KAYIT YOKSA (MUSTERI NO GIRISINE GERI DON)
-
 			if (kayitKontrol == false) {
-				System.err.printf("\n%d Nolu Musteri kayidi bulunmuyor!", musNo);
+				System.out.printf("\n%d Nolu Musteri kayidi bulunmuyor!\n", musNo);
 				kayitKontrol = true;
 			}
 
