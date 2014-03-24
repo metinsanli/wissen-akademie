@@ -158,7 +158,9 @@ public class SuperLig {
 				break;
 			// Iki kulube mas yaptir.
 			case 6:
-
+				bursa.gol();
+				trabzon.gol();
+				System.out.printf("\nTrabzon %d - %d Bursa", trabzon.skor, bursa.skor);
 				break;
 			}
 		} // end while
