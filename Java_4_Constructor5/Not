@@ -1,0 +1,16 @@
+		Oda oda = new Oda(2, 5);
+		Oda oda2 = new Oda(3, 6);
+		System.out.println(oda.odaNo + " " + oda.musteriId + " " + oda.odaUcreti + " " + oda.yatakSayisi + " " + oda.denizManzara + " " + oda.doluBos + " " + oda.temizKirli);
+		System.out.println(oda2.odaNo + " " + oda2.musteriId + " " + oda2.odaUcreti + " " + oda2.yatakSayisi + " " + oda2.denizManzara + " " + oda2.doluBos + " " + oda2.temizKirli);
+
+		-o-
+		for (int i = 0; i < otel1.oda.length; i++)
+			System.out.println(otel1.oda[i].odaNo + " " + otel1.oda[i].musteriId + " " + otel1.oda[i].odaUcreti + " " + otel1.oda[i].yatakSayisi + " " + otel1.oda[i].denizManzara + " " + otel1.oda[i].doluBos + " " + otel1.oda[i].temizKirli);
+		
+		-o-
+
+		Musteri musteri = new Musteri(1, "Metin", "31246598737", "03216547985", 5);
+		System.out.println(musteri.musteriId + " " + musteri.musteriAdi + " " + musteri.tcKimlik + " " + musteri.telNo + " " + musteri.gunSayisi);
+
+		-o-
+	
