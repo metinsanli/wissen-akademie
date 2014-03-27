@@ -11,13 +11,10 @@ public class Araba {
 	double motorHacmi, km, yakitMiktari, yakitDeposuMax, gunlukKira, yakitTuketim, litreFiyat;
 	public boolean vites; // true=manuel false=otomatik
 	public String yakitTuru, vitesTuru;
-
-	public Araba() {
-
-	} // end DEFAULT Consructor Araba()
+	public int sahipIndis;
 
 	@SuppressWarnings("static-access")
-	public Araba(String marka, double motorHacmi, String plaka, String renk, double km, double yakitMiktari, double yakitDeposuMax, double gunlukKira, double yakitTuketim, boolean yakitTuru, boolean vites) {
+	public Araba(String marka, double motorHacmi, String plaka, String renk, double km, double yakitMiktari, double yakitDeposuMax, double gunlukKira, double yakitTuketim, boolean yakitTuru, boolean vites, int sahip) {
 		this.marka = marka;
 		this.motorHacmi = motorHacmi;
 		this.plaka = plaka;
@@ -39,7 +36,12 @@ public class Araba {
 		} else {
 			this.vitesTuru = "OTO";
 		}
+		this.sahipIndis = sahip;
 	} // end constructor (...)
+
+	public Araba() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public void arabaSur() {
 		double kacKm;
@@ -62,16 +64,5 @@ public class Araba {
 			}
 		}
 	} // end method yakitAl()
-
-	public void baslikGetir() {
-		System.out.printf("\n%-10s%-5s%-12s%-8s%-10s%-6s%-8s%-7s%-6s%-9s", "Marka", "CC.", "Plaka", "Renk", "KM", "Yakit", "Tuketim", "Turu", "Vites", "Gunluk");
-		System.out.printf("\n%-10s%-5s%-12s%-8s%-10s%-6s%-8s%-7s%-6s%-9s", "---------", "----", "-----------", "-------", "---------", "-----", "-------", "------", "-----", "--------");
-	} // end method baslikGetir()
-
-	public void arabaBilgileri(boolean baslik) {
-		if (baslik)
-			baslikGetir();
-		System.out.printf("\n%-10s%-5s%-12s%-8s%-10.2f%-6s%-8s%-7s%-6s%-5sTL", marka, motorHacmi, plaka, renk, this.km, yakitMiktari, yakitTuketim, yakitTuru, vitesTuru, gunlukKira);
-	} // end method arabaBilgileri()
 
 } // end class
