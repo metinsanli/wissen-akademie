@@ -1,3 +1,5 @@
-99978656342	Metin Sanli	Bilgi Islem
-55578987634	Brad Pitt	Muhasebe
-33398700011	Angelina Jolie	Lojistik
+99963256325	Metin Sanli	Bilgi Islem
+88855225522	Hasmet Babaoglu	Lojistik
+87456238956	Kerim Sahinoglu	Bilgi Islem
+55521213245	Hincal Uluc	Muhasebe
+33345645677	Bugs Bunny	Guvenlik

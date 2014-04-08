@@ -6,6 +6,8 @@ public class SirketUygulama {
 	public static void main(String[] args) throws Exception {
 
 		anaMenu();
+		// Gorev.listeleUygunlar();
+		// Arac.listele("bosta");
 
 	} // end main()
 
@@ -15,8 +17,8 @@ public class SirketUygulama {
 			int secim = -1;
 			System.out.printf("\n\n#### ARAC GOREV TAKIP UYGULAMASI ####\n");
 			System.out.printf("\n[1] - Bilgi Tanimla");
-			System.out.printf("\n[2] - Yeni Gorev");
-			System.out.printf("\n[3] - Arac Iade");
+			System.out.printf("\n[2] - Yeni Gorev Olustur");
+			System.out.printf("\n[3] - Gorev Bitir");
 			System.out.printf("\n\n[0] - Cikis\n");
 			while (secim < 0 || secim > 3) {
 				System.out.printf("\nLutfen seciminizi yapin > ");
@@ -34,7 +36,7 @@ public class SirketUygulama {
 				Gorev.olustur();
 				break;
 			case 3:
-				Gorev.listele();
+				Gorev.bitir();
 				break;
 			}
 		}
@@ -62,9 +64,5 @@ public class SirketUygulama {
 			break;
 		}
 	} // end method bilgiTanimla()
-
-	public static void aracKayit() {
-		System.out.printf("\n#### YENI ARAC KAYIT ####\n");
-	} // end method aracKayit()
 
 } // end class

@@ -14,8 +14,13 @@ public class Personel {
 	// Scanner yerine InputStreamReader
 	static InputStreamReader isr = new InputStreamReader(System.in);
 	static BufferedReader giris = new BufferedReader(isr);
+	
 
 	public static void olustur() throws Exception {
+		// LISTELE
+		System.out.printf("\n# Mevcut personel :\n");
+		listele();
+		System.out.printf("\n");
 		// Dosya yazma
 		OutputStream yaz = new FileOutputStream(dosya, true);
 		OutputStreamWriter out = new OutputStreamWriter(yaz, "Cp1254");
@@ -64,7 +69,7 @@ public class Personel {
 			secim = null;
 		bufReader.close();
 		return secim;
-	} // end method aracSec()
+	} // end method sec()
 
 	public static void listele() throws Exception {
 		InputStream oku = new FileInputStream(dosya);
