@@ -1,19 +1,19 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 
-@SuppressWarnings("resource")
 public class SirketUygulama {
+	static File dosyatest = new File("./src/Metin.txt");
 
 	public static void main(String[] args) throws Exception {
 
-		anaMenu();
-		// Gorev.listeleUygunlar();
-		// Arac.listele("bosta");
+		// anaMenu();
+		Arac.durumDegistir("34 MTN 23", "BOSTA", "GOREVDE");
 
 	} // end main()
 
 	public static void anaMenu() throws Exception {
 		while (true) {
-			Scanner giris = new Scanner(System.in);
 			int secim = -1;
 			System.out.printf("\n\n#### ARAC GOREV TAKIP UYGULAMASI ####\n");
 			System.out.printf("\n[1] - Bilgi Tanimla");
@@ -22,7 +22,7 @@ public class SirketUygulama {
 			System.out.printf("\n\n[0] - Cikis\n");
 			while (secim < 0 || secim > 3) {
 				System.out.printf("\nLutfen seciminizi yapin > ");
-				secim = giris.nextInt();
+				secim = Integer.parseInt(klavye());
 			} // end while
 			switch (secim) {
 			case 0:
@@ -43,7 +43,6 @@ public class SirketUygulama {
 	} // end method anaMenu()
 
 	public static void bilgiTanimla() throws Exception {
-		Scanner giris = new Scanner(System.in);
 		int secim = -1;
 		System.out.printf("\n##### BILGI TANIMLAMA MENU ####\n");
 		System.out.printf("\n[1] - Personel");
@@ -51,7 +50,7 @@ public class SirketUygulama {
 		System.out.printf("\n\n[0] - Geri\n");
 		while (secim < 0 || secim > 2) {
 			System.out.printf("\nLutfen seciminizi yapin > ");
-			secim = giris.nextInt();
+			secim = Integer.parseInt(klavye());
 		}
 		switch (secim) {
 		case 0:
@@ -64,5 +63,12 @@ public class SirketUygulama {
 			break;
 		}
 	} // end method bilgiTanimla()
+
+	public static String klavye() throws Exception {
+		// Scanner yerine InputStreamReader
+		InputStreamReader klavye = new InputStreamReader(System.in);
+		BufferedReader giris = new BufferedReader(klavye);
+		return giris.readLine();
+	} // end method klavye()
 
 } // end class

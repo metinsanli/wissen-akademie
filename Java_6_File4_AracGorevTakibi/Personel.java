@@ -1,48 +1,34 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 
 public class Personel {
 	static String ad, soyad, departman, tck;
-	static File dosya = new File("./src/Personel.txt");
-	// Scanner yerine InputStreamReader
-	static InputStreamReader isr = new InputStreamReader(System.in);
-	static BufferedReader giris = new BufferedReader(isr);
-	
+	static File dosyaPersonel = new File("./src/Personel.txt");
 
 	public static void olustur() throws Exception {
 		// LISTELE
 		System.out.printf("\n# Mevcut personel :\n");
 		listele();
 		System.out.printf("\n");
-		// Dosya yazma
-		OutputStream yaz = new FileOutputStream(dosya, true);
-		OutputStreamWriter out = new OutputStreamWriter(yaz, "Cp1254");
-		BufferedWriter bufWriter = new BufferedWriter(out);
 		// Bilgileri iste
 		System.out.printf("\n#### YENI PERSONEL KAYIT ####\n");
 		System.out.printf("\nAdi\t: ");
-		ad = giris.readLine();
+		ad = SirketUygulama.klavye();
 		System.out.printf("\nSoyadi\t: ");
-		soyad = giris.readLine();
+		soyad = SirketUygulama.klavye();
 		System.out.printf("\nDepar.\t: ");
-		departman = giris.readLine();
+		departman = SirketUygulama.klavye();
 		System.out.printf("\nTCK\t: ");
-		tck = giris.readLine();
-		bufWriter.write(tck + "\t" + ad + " " + soyad + "\t" + departman);
-		bufWriter.newLine();
-		bufWriter.close();
+		tck = SirketUygulama.klavye();
+		Dosya.satirEkle(dosyaPersonel, tck + "\t" + ad + " " + soyad + "\t" + departman);
 	} // end method olustur()
 
 	public static String sec() throws Exception {
 		// DOSYAYI AC
-		InputStream oku = new FileInputStream(dosya);
+		InputStream oku = new FileInputStream(dosyaPersonel);
 		InputStreamReader isr = new InputStreamReader(oku, "Cp1254");
 		BufferedReader bufReader = new BufferedReader(isr);
 		// METHOD ICIN DEGISKENLER
@@ -51,7 +37,7 @@ public class Personel {
 		// GOVDE
 		while (secim == null) {
 			System.out.printf("\n\nTCK girin (Iptal=0) > ");
-			secim = giris.readLine();
+			secim = SirketUygulama.klavye();
 			if (secim.equals("0")) {
 				secim = null;
 				bulundu = true;
@@ -62,8 +48,8 @@ public class Personel {
 				if (satirlar[0].equalsIgnoreCase(secim)) {
 					bulundu = true;
 					break;
-				} // end if
-			} // end ic while
+				}
+			}
 		} // end dis while
 		if (!bulundu)
 			secim = null;
@@ -72,7 +58,7 @@ public class Personel {
 	} // end method sec()
 
 	public static void listele() throws Exception {
-		InputStream oku = new FileInputStream(dosya);
+		InputStream oku = new FileInputStream(dosyaPersonel);
 		InputStreamReader isr = new InputStreamReader(oku, "Cp1254");
 		BufferedReader bufReader = new BufferedReader(isr);
 		String satir, satirlar[];

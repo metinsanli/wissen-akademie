@@ -11,48 +11,25 @@ import java.io.OutputStreamWriter;
 public class Arac {
 	static String plaka, model;
 	static double km;
-	static File dosya = new File("./src/Arac.txt");
-	// KLAVYEDEN GIRIS
-	static InputStreamReader klavye = new InputStreamReader(System.in);
-	static BufferedReader giris = new BufferedReader(klavye);
+	static File dosyaArac = new File("./src/Arac.txt");
 
 	public static void olustur() throws Exception {
 		// LISTELE
 		System.out.printf("\n# Mevcut araclar :\n");
 		listele("HEPSI");
-		System.out.printf("\n");
-		// Scanner yerine InputStreamReader
-		InputStreamReader isr = new InputStreamReader(System.in, "Cp1254");
-		BufferedReader giris = new BufferedReader(isr);
-		// Dosya yazma
-		OutputStream yaz = new FileOutputStream(dosya, true);
-		OutputStreamWriter out = new OutputStreamWriter(yaz, "Cp1254");
-		BufferedWriter bufWriter = new BufferedWriter(out);
 		// Bilgileri iste
-		System.out.printf("\n#### YENI ARAC KAYIT ####\n");
+		System.out.printf("\n\n#### YENI ARAC KAYIT ####\n");
 		System.out.printf("\nModel\t: ");
-		model = giris.readLine();
+		model = SirketUygulama.klavye().toUpperCase();
 		System.out.printf("\nPlaka\t: ");
-		plaka = giris.readLine().toUpperCase();
+		plaka = SirketUygulama.klavye().toUpperCase();
 		System.out.printf("\nDepar.\t: ");
 		// Dosyaya yaz
-		bufWriter.write(plaka + "\t" + model + "\t" + km + "\t" + "BOSTA");
-		bufWriter.newLine();
-		bufWriter.close();
+		Dosya.satirEkle(dosyaArac, plaka + "\t" + model + "\t" + km + "\t" + "BOSTA");
 	} // end method olustur()
 
-	/**
-	 * <code>listele("PARAMETRE")</code> metodu parantez icinde girilen
-	 * parametreye gore Arac.txt dosyasindan okudugu bilgileri listeler.
-	 * <p>
-	 * "HEPSI" : Tum araclari listeler.
-	 * <p>
-	 * "BOSTA" : Bostaki araclar listelenir.
-	 * <p>
-	 * "GOREVDE" : Gorevdeki araclar listelenir.
-	 */
 	public static void listele(String durumu) throws Exception {
-		InputStream oku = new FileInputStream(dosya);
+		InputStream oku = new FileInputStream(dosyaArac);
 		InputStreamReader isr = new InputStreamReader(oku, "Cp1254");
 		BufferedReader bufReader = new BufferedReader(isr);
 		String satir, satirlar[];
@@ -72,7 +49,7 @@ public class Arac {
 
 	public static String sec() throws Exception {
 		// DOSYAYI AC
-		InputStream oku = new FileInputStream(dosya);
+		InputStream oku = new FileInputStream(dosyaArac);
 		InputStreamReader isr = new InputStreamReader(oku, "Cp1254");
 		BufferedReader bufReader = new BufferedReader(isr);
 		// METHOD ICIN DEGISKENLER
@@ -81,20 +58,20 @@ public class Arac {
 		// GOVDE
 		while (secim == null) {
 			System.out.printf("\n\nPlaka girin (Iptal=0) > ");
-			secim = giris.readLine();
+			secim = SirketUygulama.klavye();
 			if (secim.equals("0")) {
 				secim = null;
 				bulundu = true;
 				break;
-			} // end if
+			}
 			while ((satir = bufReader.readLine()) != null) {
 				satirlar = satir.split("\t");
 				if (satirlar[0].equalsIgnoreCase(secim)) {
 					bulundu = true;
 					break;
-				} // end if
-			} // end ic while
-		} // end dis while
+				}
+			}
+		}
 		if (!bulundu)
 			secim = null;
 		bufReader.close();
@@ -103,7 +80,7 @@ public class Arac {
 
 	public static String bilgiAl(String plaka, String bilgi) throws Exception {
 		// ARAC.TXT DOSYASINI AC
-		InputStream oku = new FileInputStream(dosya);
+		InputStream oku = new FileInputStream(dosyaArac);
 		InputStreamReader isr = new InputStreamReader(oku, "Cp1254");
 		BufferedReader bufReader = new BufferedReader(isr);
 		String satir, satirlar[] = null;
@@ -123,5 +100,9 @@ public class Arac {
 			bilgi = null;
 		return bilgi;
 	} // end method bilgiAl()
+
+	public static void durumDegistir(String plaka, String ilkdurum, String sondurum) throws Exception {
+		Dosya.satirDegistir(dosyaArac, plaka, 1, ilkdurum, sondurum);
+	} // end method durumDegistir
 
 } // end class

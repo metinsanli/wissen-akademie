@@ -12,18 +12,9 @@ import java.util.Date;
 
 public class Gorev {
 	String kod, tarih;
-	static File dosya = new File("./src/Gorev.txt");
-	static InputStreamReader isr = new InputStreamReader(System.in);
-	static BufferedReader giris = new BufferedReader(isr);
+	static File dosyaGorev = new File("./src/Gorev.txt");
 
 	public static void olustur() throws Exception {
-		// DOSYA YAZMA
-		OutputStream yaz = new FileOutputStream(dosya, true);
-		OutputStreamWriter out = new OutputStreamWriter(yaz, "Cp1254");
-		BufferedWriter bufWriter = new BufferedWriter(out);
-		// Scanner yerine InputStreamReader
-		InputStreamReader isr = new InputStreamReader(System.in, "Cp1254");
-		BufferedReader giris = new BufferedReader(isr);
 		// GOVDE
 		while (true) {
 			String plaka, personel, tarih, cikisSaat, donusSaat, nereye;
@@ -37,18 +28,19 @@ public class Gorev {
 			if (personel == null || personel == "0")
 				break;
 			System.out.printf("\nCikis Tarihi\t(GGAAYY)\t> ");
-			tarih = giris.readLine();
+			tarih = SirketUygulama.klavye();
 			System.out.printf("\nCikis Saati\t(SSDD)\t> ");
-			cikisSaat = giris.readLine();
+			cikisSaat = SirketUygulama.klavye();
 			System.out.printf("\nDonus Saati\t(SSDD)\t> ");
-			donusSaat = giris.readLine();
+			donusSaat = SirketUygulama.klavye();
 			System.out.printf("\nGidis Yeri\t\t> ");
-			nereye = giris.readLine();
-			bufWriter.write(kodUret(plaka) + "\t" + tarih + "\t" + cikisSaat + "\t" + donusSaat + "\t" + Arac.bilgiAl(plaka, "km") + "\t" + girisKM
-					+ "\t" + personel + "\t" + plaka.toUpperCase() + "\t" + nereye + "\t" + "GOREVDE");
-			bufWriter.newLine();
+			nereye = SirketUygulama.klavye();
+			Dosya.satirEkle(dosyaGorev, kodUret(plaka) + "\t" + tarih + "\t" + cikisSaat + "\t" + donusSaat + "\t" + Arac.bilgiAl(plaka, "km") + "\t"
+					+ girisKM + "\t" + personel + "\t" + plaka.toUpperCase() + "\t" + nereye + "\t" + "GOREVDE");
+			Arac.durumDegistir(plaka, "BOSTA", "GOREVDE");
+			break;
 		} // end while
-		bufWriter.close();
+
 	} // end method olustur()
 
 	public static String kodUret(String plaka) {
@@ -58,7 +50,7 @@ public class Gorev {
 	} // end method kodUret()
 
 	public static void listele(String durumu) throws Exception {
-		InputStream oku = new FileInputStream(dosya);
+		InputStream oku = new FileInputStream(dosyaGorev);
 		InputStreamReader isr = new InputStreamReader(oku, "Cp1254");
 		BufferedReader bufReader = new BufferedReader(isr);
 		String satir, satirlar[];
@@ -83,39 +75,55 @@ public class Gorev {
 
 	public static void bitir() throws Exception {
 		// GOREV.TXT DOSYASINI OKUMAK ICIN AC
-		InputStream gorevoku = new FileInputStream(dosya);
-		InputStreamReader gorevokuisr = new InputStreamReader(gorevoku, "Cp1254");
-		BufferedReader bufReadOkuGorev = new BufferedReader(gorevokuisr);
-		String gorevOkuSatir, gorevOkuSatirlar[];
-		// TEMP-GOREV.TXT DOSYASINI YAZMAK ICIN AC
-		File tempgorev = new File("./src/temp-gorev.txt");
-		OutputStream gorevyaz = new FileOutputStream(tempgorev);
-		OutputStreamWriter gorevyazisr = new OutputStreamWriter(gorevyaz, "Cp1254");
-		BufferedWriter bufWriteYazGorev = new BufferedWriter(gorevyazisr);
-		String gorevYazSatir, gorevYazSatirlar[];
-
-		String secim, girisKM;
+		InputStream gorevIS = new FileInputStream(dosyaGorev);
+		InputStreamReader gorevISR = new InputStreamReader(gorevIS, "Cp1254");
+		BufferedReader gorevOKU = new BufferedReader(gorevISR);
+		String gorevSatir;
+		// TEMP-GOREV1.TXT DOSYASINI YAZMAK ICIN AC
+		File tempdosya1 = new File("./src/temp-gorev1.txt");
+		OutputStream gorevOS = new FileOutputStream(tempdosya1, true);
+		OutputStreamWriter gorevOSW = new OutputStreamWriter(gorevOS, "Cp1254");
+		BufferedWriter tempYAZ = new BufferedWriter(gorevOSW);
+		String tempSatirlar[];
+		// KONTROL DEGISKENLERI
+		String secim, girisKM = null, plaka = null;
 		System.out.printf("\n#### GOREV BITIR ####\n");
 		System.out.printf("\nGorevde olan arac ve personel bilgileri :\n");
 		listele("GOREVDE");
-		System.out.printf("\n\nGorev kodunu yazin (Iptal=0) >");
-		secim = giris.readLine();
-		if (secim.equals("0"))
+		System.out.printf("\n\nGorev kodunu yazin\t(Iptal=0) >");
+		secim = SirketUygulama.klavye();
+		if (!secim.equals("0")) {
+			System.out.printf("\nGiris KM sini girin\t(Iptal=0) > ");
+			girisKM = SirketUygulama.klavye();
+		}
+		if (secim.equals("0") || girisKM.equals("0")) {
 			System.out.printf("\nIptal secildi!");
-		System.out.printf("\nGiris KM sini girin > ");
-		girisKM = giris.readLine();
-		if (!secim.equals("0"))
-			while ((gorevOkuSatir = bufReadOkuGorev.readLine()) != null) {
-				gorevYazSatirlar = gorevOkuSatir.split("\t");
-				if (secim.equalsIgnoreCase(gorevYazSatirlar[0])) {
-					bufWriteYazGorev.write(gorevYazSatirlar[0] + "\t" + gorevYazSatirlar[1] + "\t" + gorevYazSatirlar[2] + "\t" + gorevYazSatirlar[3]
-							+ "\t" + gorevYazSatirlar[4] + "\t" + girisKM + "\t" + gorevYazSatirlar[6] + "\t" + gorevYazSatirlar[7] + "\t"
-							+ gorevYazSatirlar[8] + "\t" + "BITTI");
+		}
+		if (!secim.equals("0")) {
+			while ((gorevSatir = gorevOKU.readLine()) != null) {
+				tempSatirlar = gorevSatir.split("\t");
+				if (secim.equalsIgnoreCase(tempSatirlar[0])) {
+					tempYAZ.write(tempSatirlar[0] + "\t" + tempSatirlar[1] + "\t" + tempSatirlar[2] + "\t" + tempSatirlar[3] + "\t" + tempSatirlar[4]
+							+ "\t" + girisKM + "\t" + tempSatirlar[6] + "\t" + tempSatirlar[7] + "\t" + tempSatirlar[8] + "\t" + "BITTI");
+					tempYAZ.newLine();
+					plaka = tempSatirlar[7];
+				} else {
+					tempYAZ.write(tempSatirlar[0] + "\t" + tempSatirlar[1] + "\t" + tempSatirlar[2] + "\t" + tempSatirlar[3] + "\t" + tempSatirlar[4]
+							+ "\t" + tempSatirlar[5] + "\t" + tempSatirlar[6] + "\t" + tempSatirlar[7] + "\t" + tempSatirlar[8] + "\t"
+							+ tempSatirlar[9]);
+					tempYAZ.newLine();
 				}
 			}
-		bufReadOkuGorev.close();
-		bufWriteYazGorev.close();
-		dosya.delete();
-		tempgorev.renameTo(dosya);
+			Arac.durumDegistir(plaka, "GOREVDE", "BOSTA");
+			gorevOKU.close();
+			tempYAZ.close();
+			dosyaGorev.delete();
+			tempdosya1.renameTo(dosyaGorev);
+		} else {
+			gorevOKU.close();
+			tempYAZ.close();
+		}
+
 	} // end method bitir()
+
 } // end class
