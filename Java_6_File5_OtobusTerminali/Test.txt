@@ -1,0 +1,4 @@
+Metin	Sanli	2	3	4
+Kerim	Sahin	7	8	9
+Ali	Veli	1	1	ASLI
+Kerim	Ikinci	45	45	45
