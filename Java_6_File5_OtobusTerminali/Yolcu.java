@@ -2,63 +2,96 @@ import java.io.File;
 
 public class Yolcu {
 	static String tck, ad, durumu;
-	static File dosyaYolcu = new File("./src/Yolcu.txt");
+	static File dosyaBilet = new File("./src/Bilet.txt");
 
-	public static void olustur() throws Exception {
+	public static void biletSat() throws Exception {
 		do {
-			System.out.printf("\n#### YOLCU OLUSTUR ####\n");
+			System.out.printf("\n???? BILET SATIS ????\n");
+			Sefer.listele("SEFERDE");
+			System.out.printf("\n\nSefer secin\t(0=iptal) > ");
+			String seferno = Uygulama.klavye().toUpperCase();
+			if (seferno.equals("0"))
+				break;
+			System.out.printf("\n**** YENI YOLCU GIRISI ****\n");
 			System.out.printf("\nTCK\tiptal=0 > ");
 			tck = Uygulama.klavye();
 			if (tck.equals("0"))
 				break;
 			System.out.printf("\nAdi\tiptal=0 > ");
 			ad = Uygulama.klavye();
-			if (ad.equals("0"))
+			if (ad.equals("0")) {
+				tck = null;
 				break;
+			}
 			durumu = "0";
-			Dosya.satirEkle(dosyaYolcu, tck + "\t" + ad + "\t" + durumu);
+			String plaka = Sefer.plakaGetir(seferno);
+			Otobus.koltukListele(plaka);
+			System.out.printf("\nKoltuk secin\t(0=iptal) > ");
+			int koltuk = Integer.parseInt(Uygulama.klavye());
+			if (koltuk == 0)
+				break;
+			File dosyaSefer = new File("./src/Sefer.txt");
+			String[] seferBilgi = Dosya.satirBulGetir(dosyaSefer, seferno).split("\t");
+			Otobus.koltukGuncelle(plaka, koltuk, tck);
+			Dosya.satirEkle(dosyaBilet, yeniBiletKoduVer() + "\t" + seferBilgi[0] + "\t" + seferBilgi[1] + "\t" + koltuk + "\t" + tck + "\t" + ad
+					+ "\t" + seferBilgi[4] + "\t" + "SATILDI");
 			break;
 		} while (true);
-	} // end method olustur()
+	} // end method biletSat()
 
-	public static void biletSat() throws Exception {
+	public static void biletIptal() throws Exception {
 		do {
-			System.out.printf("\n#### BILET SATIS ####\n");
+			System.out.printf("\n!!!! BILET IPTAL ISLEMLERI !!!!\n");
 			Sefer.listele("SEFERDE");
-			System.out.printf("\n\nSefer secin\t> ");
-			String seferno = Uygulama.klavye();
+			System.out.printf("\n\nSefer secin\t(0=iptal) > ");
+			String seferno = Uygulama.klavye().toUpperCase();
 			if (seferno.equals("0"))
 				break;
-			Yolcu.listele("0");
-			System.out.printf("\n\nMusteri secin\t> ");
-			String tck = Uygulama.klavye();
-			if (tck.equals("0"))
+			File seferDosya = new File("./src/Sefer.txt");
+			String[] plakaBul = Dosya.satirBulGetir(seferDosya, seferno).split("\t");
+
+			File dosyaOtobus = new File("./src/Otobus.txt");
+			String[] otobusBilgi = Dosya.satirBulGetir(dosyaOtobus, plakaBul[3]).split("\t");
+			String koltukBilgisi = otobusBilgi[4];
+			String[] koltuk = koltukBilgisi.split(" ");
+			for (int i = 0; i < Integer.parseInt(otobusBilgi[2]); i++) {
+				String[] kolBil = koltuk[i].split("-");
+				if (!kolBil[2].equals("0")) {
+					System.out.println(Dosya.indisteBulSatiriGetir(dosyaBilet, 4, kolBil[2]));
+				}
+			}
+			System.out.printf("\n\nBilet secin\t(0=iptal) > ");
+			String bilet = Uygulama.klavye().toUpperCase();
+			if (bilet.equals("0"))
 				break;
-			Otobus.listele("SEFERDE");
-			System.out.printf("\n");
-			// OTOBUSUN KOLTUGUNU SECILIP GUNCELLENECEK
-			Dosya.guncelle(dosyaYolcu, tck, 2, "1");
+			String[] m = Dosya.satirBulGetir(dosyaBilet, bilet).split("\t");
+			int koltukNo = Integer.parseInt(m[3]);
+			Otobus.koltukGuncelle(otobusBilgi[0], koltukNo, "0");
+			Dosya.guncelle(dosyaBilet, bilet, 7, "IPTAL");
 			break;
 		} while (true);
-	}
+	} // end method biletIptal()
 
 	public static void listele(String durumu) throws Exception {
-		System.out.printf("\n## MUSTERI LISTESI ##\n");
+		System.out.printf("\n---- MUSTERI LISTESI ----\n");
 		System.out.printf("\n%-15s%-15s%-15s", "TCK", "ADI", "DURUM");
 		System.out.printf("\n%-15s%-15s%-15s", "-----", "----", "-----");
-		Dosya.listele(dosyaYolcu, 2, durumu);
+		Dosya.listele(dosyaBilet, 2, durumu);
+		System.out.printf("\n");
 	} // end method listele()
+
+	public static String yeniBiletKoduVer() throws Exception {
+		return "BLT" + String.format("%03d", Integer.parseInt((Dosya.enSonSatiriGetir(dosyaBilet)).substring(3, 6)) + 1);
+	} // end method yeniBiletKoduVer()
 
 	public static void menu() throws Exception {
 		while (true) {
 			System.out.printf("\n#### YOLCU ISLEMLERI ####\n");
-			System.out.printf("\n[1] - Yolcu Ekle");
-			System.out.printf("\n[2] - Bilet Satis");
-			System.out.printf("\n[3] - Pasif Yolculari listele");
-			System.out.printf("\n[4] - Seyehat Eden Yolculari Listele");
+			System.out.printf("\n[1] - Bilet Satis");
+			System.out.printf("\n[2] - Bilet Iptal");
 			System.out.printf("\n\n[0] - Ana Menu\n");
 			int secim = -1;
-			while (secim > 4 || secim < 0) {
+			while (secim > 2 || secim < 0) {
 				System.out.printf("\nSecim yapin > ");
 				secim = Integer.parseInt(Uygulama.klavye());
 			}
@@ -66,16 +99,10 @@ public class Yolcu {
 				break;
 			switch (secim) {
 			case 1:
-				olustur();
-				break;
-			case 2:
 				biletSat();
 				break;
-			case 3:
-				listele("0");
-				break;
-			case 4:
-				listele("1");
+			case 2:
+				biletIptal();
 				break;
 			}
 		}

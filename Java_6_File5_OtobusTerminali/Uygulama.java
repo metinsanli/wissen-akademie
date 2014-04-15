@@ -4,8 +4,10 @@ import java.io.InputStreamReader;
 public class Uygulama {
 
 	public static void main(String[] args) throws Exception {
+
 		anaMenu();
-	}
+
+	} // end method main()
 
 	public static String klavye() throws Exception {
 		InputStreamReader veri = new InputStreamReader(System.in);
@@ -18,7 +20,7 @@ public class Uygulama {
 			System.out.printf("\n#### ANA MENU ####\n");
 			System.out.printf("\n[1] - Sefer Islemleri");
 			System.out.printf("\n[2] - Otobus Islemleri");
-			System.out.printf("\n[3] - Yolcu Islemleri");
+			System.out.printf("\n[3] - Bilet Islemleri");
 			System.out.printf("\n\n[0] - Cikis\n");
 			int secim = -1;
 			while (secim > 3 || secim < 0) {
@@ -27,7 +29,7 @@ public class Uygulama {
 			}
 			switch (secim) {
 			case 0:
-				System.out.printf("\nProgram kpatildi!");
+				System.out.printf("\nProgram kapatildi!");
 				System.exit(0);
 			case 1:
 				Sefer.menu();
@@ -40,5 +42,6 @@ public class Uygulama {
 				break;
 			}
 		}
-	}
+	} // end method anaMenu()
+
 } // end class

@@ -2,37 +2,44 @@ import java.io.File;
 
 public class Sefer {
 	static File dosyaSefer = new File("./src/Sefer.txt");
-	static String tarih, guzergah, plaka, durum;
+	static String kod, tarih, guzergah, plaka, durum;
+	static double fiyat;
 
 	public static void olustur() throws Exception {
 		do {
-			System.out.printf("\n#### YENI SEFER OLUSTUR ####\n\n");
+			System.out.printf("\n**** YENI SEFER OLUSTUR ****\n\n");
 			System.out.printf("\nTarih\t0=iptal\t> ");
 			tarih = Uygulama.klavye();
 			if (tarih.equals("0"))
 				break;
 			System.out.printf("\nGuzergah\t>0=iptal\t> ");
-			guzergah = Uygulama.klavye();
+			guzergah = Uygulama.klavye().toUpperCase();
 			if (guzergah.equals("0"))
 				break;
 			Otobus.listele("BOSTA");
 			System.out.printf("\nPlaka\t>0=iptal\t> ");
-			plaka = Uygulama.klavye();
+			plaka = Uygulama.klavye().toUpperCase();
 			if (plaka.equals("0"))
 				break;
+			System.out.printf("\nFiyat\t>0=iptal\t> ");
+			fiyat = Double.parseDouble(Uygulama.klavye());
+			if (plaka.equals("0"))
+				break;
+			kod = kodUret(tarih, guzergah, plaka);
 			durum = "SEFERDE";
 			File dosyaOtobus = new File("./src/Otobus.txt");
 			Dosya.guncelle(dosyaOtobus, plaka, 3, "SEFERDE");
-			Dosya.satirEkle(dosyaSefer, tarih + "\t" + guzergah + "\t" + plaka + "\t" + durum);
+			Dosya.satirEkle(dosyaSefer, kod + "\t" + tarih + "\t" + guzergah + "\t" + plaka + "\t" + fiyat + "\t" + durum);
 			break;
 		} while (true);
 	} // end method olustur()
 
 	public static void listele(String durum) throws Exception {
-		System.out.printf("\n#### %s SEFER LISTESI ####\n", durum);
-		System.out.printf("\n%-15s%-15s%-15s%-15s", "TARIH", "GUZ.", "PLAKA", "DURUM");
-		System.out.printf("\n%-15s%-15s%-15s%-15s", "-----", "----", "-----", "-----");
-		Dosya.listele(dosyaSefer, 3, durum);
+		System.out.printf("\n---- %s SEFER LISTESI ----\n", durum);
+		System.out.printf("\n%-13s%-13s%-13s%-13s%-13s%-13s", "KOD       ", "TARIH ", "GUZERGAH", "PLAKA     ", "FIYAT", "DURUM  ");
+		System.out.printf("\n%-13s%-13s%-13s%-13s%-13s%-13s", "----------", "------", "--------", "----------", "-----", "-------");
+		Dosya.listele(dosyaSefer, 5, durum);
+		System.out.printf("\n");
 	} // end method listele()
 
 	public static void bitir() throws Exception {
@@ -43,13 +50,21 @@ public class Sefer {
 			String secim = Uygulama.klavye();
 			if (secim.equals("0"))
 				break;
-			String[] paketler = Dosya.satirBul(dosyaSefer, secim).split("\t");
-			File dosyaOtobus = new File("./src/Otobus.txt");
-			Dosya.guncelle(dosyaOtobus, paketler[2], 3, "BOSTA");
-			Dosya.guncelle(dosyaSefer, secim, 3, "BITTI");
+			String[] bitenPlaka = Dosya.satirBulGetir(dosyaSefer, secim).split("\t");
+			Otobus.seferBitir(bitenPlaka[3]);
+			Dosya.guncelle(dosyaSefer, secim, 5, "BITTI");
 			break;
 		} while (true);
 	} // end method bitir()
+
+	public static String plakaGetir(String seferno) throws Exception {
+		String[] satir = Dosya.satirBulGetir(dosyaSefer, seferno).split("\t");
+		return satir[3];
+	} // end method plakaGetir()
+
+	public static String kodUret(String tarih, String guzergah, String plaka) {
+		return tarih.substring(0, 4) + guzergah.substring(0, 2) + guzergah.substring(4, 6) + plaka.substring(0, 2);
+	} // end method kodUret()
 
 	public static void menu() throws Exception {
 		while (true) {

@@ -10,8 +10,6 @@ import java.io.OutputStreamWriter;
 
 public class Dosya {
 
-	static File dosyatemp = new File("./src/Temp.txt");
-
 	public static BufferedReader dosyaAcOku(File dosya) throws Exception {
 		InputStream dosyaIS = new FileInputStream(dosya);
 		InputStreamReader dosyaISR = new InputStreamReader(dosyaIS, "Cp1254");
@@ -34,8 +32,9 @@ public class Dosya {
 	} // end method satirEkle()
 
 	public static void guncelle(File dosya, String aramaKriteri, int degisecekIndis, String yeniDeger) throws Exception {
+		File dosyatemp = new File("./src/Temp.txt");
 		BufferedReader dosyaOKU = dosyaAcOku(dosya);
-		StringBuffer temp = new StringBuffer();
+		StringBuilder temp = new StringBuilder();
 		String satir, paketler[];
 		while ((satir = dosyaOKU.readLine()) != null) {
 			paketler = satir.split("\t");
@@ -57,9 +56,9 @@ public class Dosya {
 		dosyaOKU.close();
 		dosya.delete();
 		dosyatemp.renameTo(dosya);
-	} // end method satirDegistir()
+	} // end method guncelle()
 
-	public static String satirBul(File dosya, String aramaKriteri) throws Exception {
+	public static String satirBulGetir(File dosya, String aramaKriteri) throws Exception {
 		BufferedReader dosyaOKU = dosyaAcOku(dosya);
 		StringBuffer temp = new StringBuffer();
 		temp.delete(0, temp.length());
@@ -71,7 +70,29 @@ public class Dosya {
 			}
 		}
 		return temp.toString();
-	} // end method satirBul()
+	} // end method satirBulGetir()
+
+	public static String enSonSatiriGetir(File dosya) throws Exception {
+		BufferedReader dosyaOKU = dosyaAcOku(dosya);
+		String satir, sonSatir = "";
+		while ((satir = dosyaOKU.readLine()) != null) {
+			sonSatir = satir;
+		}
+		return sonSatir;
+	} // end method sonSatiriGetir()
+
+	public static String indisteBulSatiriGetir(File dosya, int aramaYapilacakIndis, String kriter) throws Exception {
+		BufferedReader dosyaOKU = dosyaAcOku(dosya);
+		String satir, token[], bulunan = null;
+		while ((satir = dosyaOKU.readLine()) != null) {
+			token = satir.split("\t");
+			if (token[aramaYapilacakIndis].equalsIgnoreCase(kriter)) {
+				bulunan = satir;
+				break;
+			}
+		}
+		return bulunan;
+	} // end method indisteBulSatiriGetir()
 
 	public static void listele(File dosya, int indis, String kriter) throws Exception {
 		BufferedReader dosyaOKU = dosyaAcOku(dosya);
@@ -83,7 +104,7 @@ public class Dosya {
 			if (paketler[indis].equalsIgnoreCase(kriter)) {
 				System.out.println();
 				for (String yaz : paketler)
-					System.out.printf("%-15s", yaz);
+					System.out.printf("%-13s", yaz);
 			}
 		}
 	} // end method listele()
