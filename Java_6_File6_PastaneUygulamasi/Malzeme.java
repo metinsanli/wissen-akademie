@@ -1,8 +1,8 @@
-import java.io.File;
+
 
 public class Malzeme {
 
-	private static File dosyaMalzeme = new File("./src/Malzeme.txt");
+	private Dosya dosyaMalzeme = new Dosya("./src/Malzeme.txt");
 	public String kod, ad, birim;
 	public double fiyat, miktar;
 
@@ -10,12 +10,11 @@ public class Malzeme {
 	} // end constructor DEFAULT
 
 	public Malzeme(String kod, String ad, double fiyat, double miktar, String birim) throws Exception {
-		Dosya.satirEkle(dosyaMalzeme,
-				(kod + "\t" + ad + "\t" + Uygulama.formatla(fiyat) + "\t" + Uygulama.formatla(miktar) + "\t" + birim + "\tAKTIF"));
+		dosyaMalzeme.satirEkle((kod + "\t" + ad + "\t" + Uygulama.formatla(fiyat) + "\t" + Uygulama.formatla(miktar) + "\t" + birim + "\tAKTIF"));
 	} // end constructor
 
 	public void sec(String malzemeKodu) throws Exception {
-		String[] satir = Dosya.bulGetir(dosyaMalzeme, 0, malzemeKodu).split("\t");
+		String[] satir = dosyaMalzeme.bulGetir(0, malzemeKodu).split("\t");
 		kod = satir[0];
 		ad = satir[1];
 		fiyat = Double.parseDouble(Uygulama.formatla(satir[2]));
@@ -27,7 +26,7 @@ public class Malzeme {
 		System.out.printf("\n---- %s ----\n", "MALZEME LISTESI");
 		System.out.printf("\n%-13s%-13s%-13s%-13s%-13s%-13s", "KOD", "AD", "FIYAT", "MIKTAR", "BIRIM", "DURUM");
 		System.out.printf("\n%-13s%-13s%-13s%-13s%-13s%-13s", "---", "--", "-----", "------", "-----", "-----");
-		Dosya.listele(dosyaMalzeme, 5, "AKTIF");
+		dosyaMalzeme.listele(5, "AKTIF");
 		System.out.printf("\n");
 	}// end method listele()
 
@@ -38,12 +37,12 @@ public class Malzeme {
 			System.out.printf("\n%-10s> ", "Kodu");
 			kod = Uygulama.klavye().toUpperCase();
 			// kod daha once girilmis mi?
-			if (!Dosya.bulGetir(dosyaMalzeme, 0, kod).equals("")) {
+			if (!dosyaMalzeme.bulGetir(0, kod).equals("")) {
 				sec(kod);
 				System.out.printf("%s secildi!\n", ad);
 				System.out.printf("%-10s> ", "Miktari");
 				miktar += Double.parseDouble(Uygulama.klavye());
-				Dosya.guncelle(dosyaMalzeme, kod, 3, Uygulama.formatla(miktar));
+				dosyaMalzeme.guncelle(kod, 3, Uygulama.formatla(miktar));
 				System.out.printf("\n%s malzemesine yeni miktari %s %s oldu.\n", ad, Uygulama.formatla(miktar), birim);
 				break;
 			}
@@ -55,8 +54,7 @@ public class Malzeme {
 			miktar = Double.parseDouble(Uygulama.klavye());
 			System.out.printf("%-10s> ", "Fiyati");
 			fiyat = Double.parseDouble(Uygulama.klavye());
-			Dosya.satirEkle(dosyaMalzeme,
-					(kod + "\t" + ad + "\t" + Uygulama.formatla(fiyat) + "\t" + Uygulama.formatla(miktar) + "\t" + birim + "\tAKTIF"));
+			dosyaMalzeme.satirEkle(kod + "\t" + ad + "\t" + Uygulama.formatla(fiyat) + "\t" + Uygulama.formatla(miktar) + "\t" + birim + "\tAKTIF");
 			System.out.printf("\n%s malzemesinin kayidi olusturuldu.\n", ad);
 			break;
 		} while (true);
@@ -67,17 +65,17 @@ public class Malzeme {
 		listele();
 		System.out.printf("\n\n%-10s> ", "Kodu girin");
 		sec(Uygulama.klavye().toUpperCase());
-		Dosya.satirSil(dosyaMalzeme, kod, 0);
+		dosyaMalzeme.satirSil(kod, 0);
 		System.out.printf("\n%s malzemesi silindi.", ad);
 	} // end method sil()
 
 	public boolean miktarAzalt(double miktar) throws Exception {
 		boolean mesaj = false;
-		String[] satir = Dosya.bulGetir(dosyaMalzeme, 0, kod).split("\t");
+		String[] satir = dosyaMalzeme.bulGetir(0, kod).split("\t");
 		double mevcutMiktar = Double.valueOf(Uygulama.formatla(satir[3]));
 		if (satir[0].equalsIgnoreCase(kod) && (mevcutMiktar - miktar) >= 0) {
 			mevcutMiktar -= miktar;
-			Dosya.guncelle(dosyaMalzeme, kod, 3, Uygulama.formatla(mevcutMiktar));
+			dosyaMalzeme.guncelle(kod, 3, Uygulama.formatla(mevcutMiktar));
 			mesaj = true;
 		}
 		return mesaj;
@@ -85,11 +83,11 @@ public class Malzeme {
 
 	public boolean miktarArtir(double miktar) throws Exception {
 		boolean mesaj = false;
-		String[] satir = Dosya.bulGetir(dosyaMalzeme, 0, kod).split("\t");
+		String[] satir = dosyaMalzeme.bulGetir(0, kod).split("\t");
 		double mevcutMiktar = Double.valueOf(Uygulama.formatla(satir[3]));
 		if (satir[0].equalsIgnoreCase(kod)) {
 			mevcutMiktar += miktar;
-			Dosya.guncelle(dosyaMalzeme, kod, 3, Uygulama.formatla(mevcutMiktar));
+			dosyaMalzeme.guncelle(kod, 3, Uygulama.formatla(mevcutMiktar));
 			mesaj = true;
 		}
 		return mesaj;
@@ -99,7 +97,7 @@ public class Malzeme {
 		boolean cevap = true;
 		sec(malzemeKodu);
 		if (miktar < gerekenMiktar) {
-			System.out.printf("\n%s miktari az, gereken miktar %s %s.", ad, Uygulama.formatla(gerekenMiktar), birim);
+			System.out.printf("\n%s miktari az, gereken miktar %s %s.", ad, Uygulama.formatla(gerekenMiktar - miktar), birim);
 			cevap = false;
 		}
 		return cevap;

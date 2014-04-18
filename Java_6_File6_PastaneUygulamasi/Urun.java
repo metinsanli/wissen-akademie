@@ -1,17 +1,17 @@
-import java.io.File;
+
 
 public class Urun {
 
-	private static File dosyaUrun = new File("./src/Urun.txt");
-	public static String kod, ad;
-	private static double fiyat, maliyet;
-	private static String[][] recete; // []KOD, []MIKTAR
+	private Dosya dosyaUrun = new Dosya("./src/Urun.txt");
+	public String kod, ad;
+	private double fiyat, maliyet;
+	private String[][] recete; // [A]MALZEME-KODU, [B]MIKTAR
 
 	public Urun() throws Exception {
 	} // end constructor DEFAULT
 
 	public void sec(String urunKodu) throws Exception {
-		String[] satir = Dosya.bulGetir(dosyaUrun, 0, urunKodu).split("\t");
+		String[] satir = dosyaUrun.bulGetir(0, urunKodu).split("\t");
 		kod = satir[0];
 		ad = satir[1];
 		fiyat = Double.parseDouble(Uygulama.formatla(satir[2]));
@@ -29,7 +29,7 @@ public class Urun {
 		System.out.printf("\n---- %s ----\n", "URUN LISTESI");
 		System.out.printf("\n%-13s%-13s%-13s%-13s%-13s", "KOD", "AD", "FIYAT", "DURUM", "MALZEMELER");
 		System.out.printf("\n%-13s%-13s%-13s%-13s%-13s", "---", "--", "-----", "-----", "----------");
-		Dosya.listele(dosyaUrun, 3, "AKTIF");
+		dosyaUrun.listele(3, "AKTIF");
 		System.out.printf("\n");
 	}// end method listele()
 
@@ -63,7 +63,7 @@ public class Urun {
 			System.out.printf("%s eklendi. Bitirmek icin Malzeme koduna \"0\" giriniz.", malzeme.ad);
 			System.out.printf("\n\"%s\"", tmp.toString());
 		} while (true);
-		Dosya.satirEkle(dosyaUrun, (kod + "\t" + ad + "\t" + Uygulama.formatla(fiyat) + "\tAKTIF" + "\t" + tmp.toString()));
+		dosyaUrun.satirEkle((kod + "\t" + ad + "\t" + Uygulama.formatla(fiyat) + "\tAKTIF" + "\t" + tmp.toString()));
 		System.out.printf("\n%s urun kaydi olusturuldu.\n", ad);
 	} // end method ekle()
 
@@ -87,7 +87,7 @@ public class Urun {
 					malzeme.miktarAzalt(Double.parseDouble(recete[i][1]));
 					maliyet += malzeme.fiyat;
 				}
-				System.out.printf("\n%s %s TL ye mal edildi.\n", ad, Uygulama.formatla(maliyet));
+				System.out.printf("%s %s TL ye mal edildi.\n", ad, Uygulama.formatla(maliyet));
 			}
 			break;
 		} while (true);
