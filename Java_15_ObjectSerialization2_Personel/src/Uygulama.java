@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.glass.events.MouseEvent;
@@ -31,29 +32,31 @@ import com.sun.glass.events.MouseEvent;
 public class Uygulama extends JFrame {
 
 	private Dosya dosya = new Dosya();
-	private JPanel panelLabels = new JPanel(new GridLayout(5, 1));;
-	private JPanel panelButtons = new JPanel(new GridLayout(1, 4));;
-	private JPanel panelTextFields = new JPanel(new GridLayout(5, 1));;
-	private JPanel panelSouth = new JPanel(new BorderLayout());;
-	private JPanel panelCheckbox = new JPanel(new GridLayout(1, 5));;
-	private JPanel panelSearch = new JPanel(new BorderLayout());;
+	private JPanel panelLabels = new JPanel(new GridLayout(5, 1));
+	private JPanel panelButtons = new JPanel(new GridLayout(1, 4));
+	private JPanel panelTextFields = new JPanel(new GridLayout(5, 1));
+	private JPanel panelSouth = new JPanel(new BorderLayout());
+	private JPanel panelCheckbox = new JPanel(new GridLayout(1, 6));
+	private JPanel panelSearch = new JPanel(new BorderLayout());
 	private JLabel lblBaslik = new JLabel("PERSONEL LISTESI");
 	private JLabel lblTc = new JLabel("Tc Kimlik :");
 	private JLabel lblAd = new JLabel("Ad Soyad :");
 	private JLabel lblMeslek = new JLabel("Meslek :");
 	private JLabel lblTel = new JLabel("Telefon :");
 	private JLabel lblSehir = new JLabel("Sehir :");
-	private JCheckBox ckbTc = new JCheckBox("TC Kimlik");;
-	private JCheckBox ckbAd = new JCheckBox("Ad Soyad");;
-	private JCheckBox ckbMeslek = new JCheckBox("Meslek");;
-	private JCheckBox ckbTel = new JCheckBox("Telefon");;
-	private JCheckBox ckbSehir = new JCheckBox("Sehir");;
+	private JLabel lblBul = new JLabel(" Arama Yap : ");
+	private JCheckBox ckbTc = new JCheckBox("TC Kimlik");
+	private JCheckBox ckbAd = new JCheckBox("Ad Soyad");
+	private JCheckBox ckbMeslek = new JCheckBox("Meslek");
+	private JCheckBox ckbTel = new JCheckBox("Telefon");
+	private JCheckBox ckbSehir = new JCheckBox("Sehir");
+	private JCheckBox ckbTum = new JCheckBox("Tümü");
 	private JTextField txtTc = new JTextField(20);
 	private JTextField txtAd = new JTextField(20);
 	private JTextField txtMeslek = new JTextField(20);
 	private JTextField txtTel = new JTextField(20);
 	private JTextField txtSehir = new JTextField(15);
-	private JTextField txtBul = new JTextField(30);
+	private JTextField txtBul = new JTextField(20);
 	private JButton btnEkle = new JButton("Ekle");
 	private JButton btnSil = new JButton("Sil");
 	private JButton btnOku = new JButton("Oku");
@@ -66,7 +69,7 @@ public class Uygulama extends JFrame {
 	private JComboBox secenekler = new JComboBox(sehirler);
 
 	public Uygulama() {
-		super("Border + Grid Layout Demo");
+		super("Personel Listeleme Demo");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		// TITLE
@@ -95,10 +98,13 @@ public class Uygulama extends JFrame {
 		panelCheckbox.add(ckbMeslek);
 		panelCheckbox.add(ckbTel);
 		panelCheckbox.add(ckbSehir);
+		panelCheckbox.add(ckbTum);
 		panelSearch.add(panelCheckbox, "North");
-		panelSearch.add(txtBul, "West");
-		panelSearch.add(btnBul, "Center");
-		panelSouth.add(panelSearch, BorderLayout.NORTH);
+		panelSearch.add(lblBul, "West");
+		panelSearch.add(txtBul, "Center");
+		panelSearch.add(btnBul, "East");
+		panelSouth.add(panelSearch, BorderLayout.CENTER);
+		ckbTum.addActionListener(new TumunuSec());
 		btnBul.addActionListener(new Bul());
 		// BUTTON
 		btnEkle.addActionListener(new Ekle());
@@ -109,7 +115,7 @@ public class Uygulama extends JFrame {
 		panelButtons.add(btnOku);
 		btnYaz.addActionListener(new Kaydet());
 		panelButtons.add(btnYaz);
-		panelSouth.add(panelButtons, BorderLayout.CENTER);
+		panelSouth.add(panelButtons, BorderLayout.NORTH);
 		// JTABLE
 		add(panelSouth, BorderLayout.SOUTH);
 		model = new DefaultTableModel();
@@ -136,6 +142,26 @@ public class Uygulama extends JFrame {
 			txtSehir.setText((String) secenekler.getSelectedItem());
 		}
 	} // END INNER CLASS ComboSecim
+
+	public class TumunuSec implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (ckbTum.isSelected()) {
+				ckbTc.setSelected(true);
+				ckbAd.setSelected(true);
+				ckbMeslek.setSelected(true);
+				ckbTel.setSelected(true);
+				ckbSehir.setSelected(true);
+			} else {
+				ckbTc.setSelected(false);
+				ckbTc.setSelected(false);
+				ckbAd.setSelected(false);
+				ckbMeslek.setSelected(false);
+				ckbTel.setSelected(false);
+				ckbSehir.setSelected(false);
+			}
+		}
+	} // END INNER CLASS TumunuSec
 
 	public class Ekle implements ActionListener {
 		@Override
@@ -187,7 +213,7 @@ public class Uygulama extends JFrame {
 			int rowcount = model.getRowCount();
 			ArrayList<Personel> list = dosya.oku();
 			if (rowcount != list.size() && rowcount != 0) {
-				int cevap = JOptionPane.showOptionDialog(null, "Listenizde kaydedilmemis degisikler var!\nDevam edilsinmi?", "metin", -1, 2, null, options, 0);
+				int cevap = JOptionPane.showOptionDialog(null, "Listenizde kaydedilmemis degisikler var!\nDevam edilsinmi?", "Uyarı!", -1, 2, null, options, 0);
 				switch (cevap) {
 					case 0: // evet
 						model.setRowCount(0); // jtable'i temizle
@@ -210,19 +236,19 @@ public class Uygulama extends JFrame {
 			model.setRowCount(0);
 			ArrayList<Personel> personel = dosya.oku();
 			for (Personel p : personel) {
-				if (ckbTc.isSelected() && p.getTc().equalsIgnoreCase(txtBul.getText())) {
+				if (ckbTc.isSelected() && p.getTc().contains(txtBul.getText())) {
 					model.addRow(p.getAll());
 					continue;
-				} else if (ckbAd.isSelected() && p.getAdSoyad().equalsIgnoreCase(txtBul.getText())) {
+				} else if (ckbAd.isSelected() && p.getAdSoyad().contains(txtBul.getText())) {
 					model.addRow(p.getAll());
 					continue;
-				} else if (ckbMeslek.isSelected() && p.getMeslek().equalsIgnoreCase(txtBul.getText())) {
+				} else if (ckbMeslek.isSelected() && p.getMeslek().contains(txtBul.getText())) {
 					model.addRow(p.getAll());
 					continue;
-				} else if (ckbTel.isSelected() && p.getTelefon().equalsIgnoreCase(txtBul.getText())) {
+				} else if (ckbTel.isSelected() && p.getTelefon().contains(txtBul.getText())) {
 					model.addRow(p.getAll());
 					continue;
-				} else if (ckbSehir.isSelected() && p.getSehir().equalsIgnoreCase(txtBul.getText())) {
+				} else if (ckbSehir.isSelected() && p.getSehir().contains(txtBul.getText())) {
 					model.addRow(p.getAll());
 					continue;
 				}
