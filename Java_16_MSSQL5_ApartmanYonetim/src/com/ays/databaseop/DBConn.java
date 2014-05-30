@@ -6,6 +6,7 @@
 package com.ays.databaseop;
 
 import com.ays.entity.Daire;
+import com.ays.entity.Gider;
 import com.ays.entity.Kisi;
 import com.ays.forms.MainFrame;
 import java.sql.Connection;
@@ -33,7 +34,7 @@ public class DBConn {
             MainFrame.durumMesaji("Sql Server baglantisinda sorun var!!");
             JOptionPane.showMessageDialog(null, ex.getMessage() + "\nHata Kodu : " + ex.getErrorCode());
         }
-        MainFrame.durumMesaji("Sql Server baglantisi basarili.");
+        //MainFrame.durumMesaji("Sql Server baglantisi basarili.");
     }
 
     public int insertKisi (Kisi kisi) {
@@ -42,12 +43,13 @@ public class DBConn {
         try {
 
             PreparedStatement insert = connection.prepareStatement("INSERT INTO [dbApartman].[dbo].[tblKisi]"
-                    + " ( [TCKimlikNo], [Adi], [Soyadi], [DogumTarihi] )"
-                    + " VALUES ( ?, ?, ?, CONVERT (DATE , ? , 104) )");
+                    + " ( [TCKimlikNo], [Adi], [Soyadi], [DogumTarihi], [Email] )"
+                    + " VALUES ( ?, ?, ?, CONVERT (DATE , ? , 104), ? )");
             insert.setString(1, kisi.getTCKimlik());
             insert.setString(2, kisi.getAd());
             insert.setString(3, kisi.getSoyad());
             insert.setDate(4, kisi.getDogumTarih());
+            insert.setString(5, kisi.getEmail());
 
             result = insert.executeUpdate(); // daire(Daire) nesnesinden gelen
 
@@ -70,18 +72,24 @@ public class DBConn {
         try {
 
             PreparedStatement update = connection.prepareStatement("UPDATE [tblKisi]"
-                    + " [Adi] = ?, [Soyadi] = ?, [DogumTarihi] = CONVERT (DATE , ? , 104)"
+                    + " SET [Adi] = ?, [Soyadi] = ?, [DogumTarihi] = CONVERT (DATE , ? , 104), [Email] = ?"
                     + " WHERE [TCKimlikNo] = ?");
+            // Eger SQL SERVER'in Region and Language ayarlari English (2014-01-12) format
+            // olarak ayarliysa update.setDate(3, kisi.getDogumTarih()); satirinin 
+            // verdigi Turkish (12.01.2014) tarih formati CONVERT (DATE , ? , 104) ile English
+            // formatina cevrilecektir.
 
             update.setString(1, kisi.getAd());
             update.setString(2, kisi.getSoyad());
             update.setDate(3, kisi.getDogumTarih());
-            update.setString(4, kisi.getTCKimlik());
+            update.setString(4, kisi.getEmail());
+            update.setString(5, kisi.getTCKimlik());
 
             result = update.executeUpdate();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Hata olustu!\n" + ex.getMessage());
+            ex.printStackTrace();
         } finally {
             close();
         }
@@ -100,6 +108,7 @@ public class DBConn {
                 kisi.setAd(veri.getString("Adi"));
                 kisi.setSoyad(veri.getString("Soyadi"));
                 kisi.setDogumTarih(veri.getDate("DogumTarihi"));
+                kisi.setEmail(veri.getString("Email"));
                 kisiler.add(kisi);
             }
         } catch (SQLException ex) {
@@ -123,6 +132,7 @@ public class DBConn {
                 kisi.setAd(veri.getString("Adi"));
                 kisi.setSoyad(veri.getString("Soyadi"));
                 kisi.setDogumTarih(veri.getDate("DogumTarihi"));
+                kisi.setEmail(veri.getString("Email"));
             }
         } catch (SQLException ex) {
             JOptionPane.showConfirmDialog(null, ex.getMessage() + "\nHata Kodu : " + ex.getErrorCode());
@@ -152,9 +162,11 @@ public class DBConn {
 
             result = insert.executeUpdate(); // daire(Daire) nesnesinden gelen
 
+            MainFrame.durumMesaji(daire.getDaireNo() + " nolu daire veri tabanina eklendi.");
+
         } catch (SQLException ex) {
             if (ex.getErrorCode() == 2627) {
-                JOptionPane.showMessageDialog(null, ex.getMessage() + "\nEklediginiz deger zaten var!");
+                JOptionPane.showMessageDialog(null, "\nEklediginiz deger zaten var!");
             } else {
                 JOptionPane.showMessageDialog(null, ex.getMessage() + "\nHata Kodu : " + ex.getErrorCode());
             }
@@ -182,6 +194,30 @@ public class DBConn {
             update.setString(8, daire.getDaireNo());
 
             result = update.executeUpdate(); // daire(Daire) nesnesinden gelen
+
+            MainFrame.durumMesaji(daire.getDaireNo() + " nolu daireye ait bilgiler guncellendi.");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Hata olustu!\n" + ex.getMessage());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public int deleteDaire (Daire daire) {
+        int result = 0;
+        try {
+
+            PreparedStatement update = connection.prepareStatement("DELETE FROM [dbApartman].[dbo].[tblDaire]"
+                    + " WHERE [DaireNo] = ?");
+
+            update.setString(1, daire.getDaireNo());
+
+            result = update.executeUpdate(); // daire(Daire) nesnesinden gelen
+
+            MainFrame.durumMesaji(daire.getDaireNo() + " nolu daire kayidi silindi.");
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Hata olustu!\n" + ex.getMessage());
         } finally {
@@ -242,11 +278,132 @@ public class DBConn {
                 daire.setDublex(veri.getBoolean("Dublex"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showConfirmDialog(null, ex.getMessage() + "\nHata Kodu : " + ex.getErrorCode());
+            JOptionPane.showConfirmDialog(null, "getDaire() Hata olustu! :\n " + ex.getMessage());
         } finally {
             close();
         }
         return daire;
+    }
+
+    public int insertGider (Gider gider) {
+        int result = 0;
+        try {
+
+            PreparedStatement insert = connection.prepareStatement("INSERT INTO [dbApartman].[dbo].[tblGider]"
+                    + " ( [GiderKod], [GiderAdi] )"
+                    + " VALUES ( ?, ? )");
+
+            insert.setString(1, gider.getKod());
+            insert.setString(2, gider.getAd());
+
+            result = insert.executeUpdate();
+
+            MainFrame.durumMesaji(gider.getAd() + " isimli gider veri tabanina eklendi.");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "insertGider() Hata olustu!\n" + ex.getMessage());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public int updateGider (Gider gider) {
+
+        int result = 0;
+
+        try {
+
+            PreparedStatement update = connection.prepareStatement("UPDATE [dbApartman].[dbo].[tblGider]"
+                    + " SET [GiderAdi] = ?"
+                    + " WHERE [GiderKod] = ?");
+
+            update.setString(1, gider.getAd());
+            update.setString(2, gider.getKod());
+
+            result = update.executeUpdate();
+
+            MainFrame.durumMesaji(gider.getAd() + " isimli gidere ait bilgiler guncellendi.");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "updateGider() Hata olustu!\n" + ex.getMessage());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public int deleteGider (Gider gider) {
+
+        int result = 0;
+
+        try {
+
+            PreparedStatement update = connection.prepareStatement("DELETE FROM [dbApartman].[dbo].[tblGider]"
+                    + " WHERE [GiderKod] = ?");
+
+            update.setString(1, gider.getKod());
+
+            result = update.executeUpdate();
+
+            MainFrame.durumMesaji(gider.getAd() + " isimli gider kayidi silindi.");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "updateGider() Hata olustu!\n" + ex.getMessage());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public ArrayList<Gider> getAllGider () {
+
+        ArrayList<Gider> giderler = new ArrayList<>();
+
+        try {
+
+            PreparedStatement sorgu = connection.prepareStatement("SELECT * FROM [tblGider] ORDER BY [GiderKod]");
+
+            veri = sorgu.executeQuery();
+
+            while (veri.next()) {
+                Gider gider = new Gider(veri.getString("GiderKod"), veri.getString("GiderAdi"));
+                giderler.add(gider);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "getAllGider() Hata olustu!\n" + ex.getMessage());
+        } finally {
+            close();
+        }
+        return giderler;
+    }
+
+    public Gider getGider (String giderKod) {
+
+        Gider gider = new Gider();
+
+        try {
+
+            PreparedStatement sorgu = connection.prepareStatement("SELECT * FROM [tblGider]"
+                    + " WHERE [GiderKod] = ?");
+
+            sorgu.setString(1, giderKod);
+            veri = sorgu.executeQuery();
+
+            while (veri.next()) {
+                gider.setKod(veri.getString("GiderKod"));
+                gider.setAd(veri.getString("GiderAdi"));
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "getGider() Hata olustu!\n" + ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            close();
+        }
+
+        return gider;
     }
 
     public void close () {
@@ -256,7 +413,7 @@ public class DBConn {
             }
             connection.close();
         } catch (SQLException ex) {
-            JOptionPane.showConfirmDialog(null, ex.getMessage() + "\nHata Kodu : " + ex.getErrorCode());
+            JOptionPane.showConfirmDialog(null, "close() Hata olustu!\nHata Kodu : " + ex.getErrorCode() + "\n" + ex.getMessage());
         }
     }
 

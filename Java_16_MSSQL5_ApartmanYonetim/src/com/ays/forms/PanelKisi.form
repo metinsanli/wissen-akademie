@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblDaireNo" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblDurum" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cmbDaireNo" max="32767" attributes="0"/>
+                          <Component id="cmbDurum" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblTCKimlik" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblAd" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblSoyad" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblDogumTarih" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblSec" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnTemizle" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtemail" max="32767" attributes="0"/>
+                                  <Component id="dateDogumTarih" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtSoyad" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtAd" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtTCKimlik" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cmbKisiBilgileri" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace pref="24" max="32767" attributes="0"/>
+                              <Component id="jButton1" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnKaydet" min="-2" pref="72" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cmbKisiBilgileri" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSec" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblTCKimlik" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtTCKimlik" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAd" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtAd" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblSoyad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtSoyad" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblDogumTarih" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dateDogumTarih" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtemail" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cmbDaireNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDaireNo" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cmbDurum" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDurum" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnTemizle" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnKaydet" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="lblSec">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sec"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbKisiBilgileri">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="cmbKisiListesiDoldur()" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblTCKimlik">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="TC Kimlik No"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtTCKimlik">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAd">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Adi"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtAd">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSoyad">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Soyadi"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtSoyad">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDogumTarih">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Dogum Tarihi"/>
+      </Properties>
+    </Component>
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="dateDogumTarih">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateDogumTarihActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnKaydet">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Kaydet"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[100, 28]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKaydetActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnTemizle">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Temizle"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[59, 28]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTemizleActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblEmail">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="E-posta"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtemail">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDaireNo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Daire No"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbDaireNo">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="cmbDaireNoDoldur()" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDurum">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Durumu"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbDurum">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="&lt;bo&#x15f;&gt;"/>
+            <StringItem index="1" value="Sahibi"/>
+            <StringItem index="2" value="Kiraci"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sil"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

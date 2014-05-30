@@ -30,56 +30,36 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menuDaire">
+        <Menu class="javax.swing.JMenu" name="menuTanimla">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Daire"/>
+            <Property name="text" type="java.lang.String" value="Tanimla"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmDaireEkle">
+            <MenuItem class="javax.swing.JMenuItem" name="jmKisi">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Yeni Daire"/>
+                <Property name="text" type="java.lang.String" value="Kisi"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmDaireEkleActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmKisiActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmDaireGuncelle">
+            <MenuItem class="javax.swing.JMenuItem" name="jmGider">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Daire Guncelle"/>
+                <Property name="text" type="java.lang.String" value="Gider"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmDaireGuncelleActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmGiderActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmDaire">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Daire"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmDaireActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="menuKisi">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Kisi"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmKisiEkle">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Kisi Ekle"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmKisiEkleActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Kisi Guncelle"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Makbuz"/>
-          </Properties>
         </Menu>
       </SubComponents>
     </Menu>
@@ -131,7 +111,7 @@
               <Font name="Ubuntu" size="13" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="durumMesaji" type="code"/>
+              <Connection code="&quot;Heyo!&quot;" type="code"/>
             </Property>
           </Properties>
           <AuxValues>

@@ -7,6 +7,7 @@
     <Property name="iconifiable" type="boolean" value="true"/>
     <Property name="focusable" type="boolean" value="false"/>
     <Property name="requestFocusEnabled" type="boolean" value="false"/>
+    <Property name="selected" type="boolean" value="true"/>
     <Property name="visible" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>

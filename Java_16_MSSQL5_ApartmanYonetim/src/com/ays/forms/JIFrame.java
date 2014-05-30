@@ -44,6 +44,11 @@ public class JIFrame extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setFocusable(false);
         setRequestFocusEnabled(false);
+        try {
+            setSelected(true);
+        } catch (java.beans.PropertyVetoException e1) {
+            e1.printStackTrace();
+        }
         setVisible(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

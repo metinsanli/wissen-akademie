@@ -13,8 +13,6 @@ import javax.swing.JOptionPane;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    public static String durumMesaji = "Heyo!";
-
     /**
      Creates new form MainFrame
      */
@@ -38,20 +36,17 @@ public class MainFrame extends javax.swing.JFrame {
         menuProgram = new javax.swing.JMenu();
         jmHakkinda = new javax.swing.JMenuItem();
         jmCikis = new javax.swing.JMenuItem();
-        menuDaire = new javax.swing.JMenu();
-        jmDaireEkle = new javax.swing.JMenuItem();
-        jmDaireGuncelle = new javax.swing.JMenuItem();
-        menuKisi = new javax.swing.JMenu();
-        jmKisiEkle = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        menuTanimla = new javax.swing.JMenu();
+        jmKisi = new javax.swing.JMenuItem();
+        jmGider = new javax.swing.JMenuItem();
+        jmDaire = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Apartman Yonetim 1.0");
         setResizable(false);
 
         lblDurum.setFont(new java.awt.Font("Ubuntu", 1, 13)); // NOI18N
-        lblDurum.setText(durumMesaji);
+        lblDurum.setText("Heyo!");
         desktopPane.add(lblDurum);
         lblDurum.setBounds(10, 430, 600, 16);
         desktopPane.setLayer(lblDurum, javax.swing.JLayeredPane.DRAG_LAYER);
@@ -79,48 +74,33 @@ public class MainFrame extends javax.swing.JFrame {
 
         menuBar.add(menuProgram);
 
-        menuDaire.setText("Daire");
+        menuTanimla.setText("Tanimla");
 
-        jmDaireEkle.setText("Yeni Daire");
-        jmDaireEkle.addActionListener(new java.awt.event.ActionListener() {
+        jmKisi.setText("Kisi");
+        jmKisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmDaireEkleActionPerformed(evt);
+                jmKisiActionPerformed(evt);
             }
         });
-        menuDaire.add(jmDaireEkle);
+        menuTanimla.add(jmKisi);
 
-        jmDaireGuncelle.setText("Daire Guncelle");
-        jmDaireGuncelle.addActionListener(new java.awt.event.ActionListener() {
+        jmGider.setText("Gider");
+        jmGider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmDaireGuncelleActionPerformed(evt);
+                jmGiderActionPerformed(evt);
             }
         });
-        menuDaire.add(jmDaireGuncelle);
+        menuTanimla.add(jmGider);
 
-        menuBar.add(menuDaire);
-
-        menuKisi.setText("Kisi");
-
-        jmKisiEkle.setText("Kisi Ekle");
-        jmKisiEkle.addActionListener(new java.awt.event.ActionListener() {
+        jmDaire.setText("Daire");
+        jmDaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmKisiEkleActionPerformed(evt);
+                jmDaireActionPerformed(evt);
             }
         });
-        menuKisi.add(jmKisiEkle);
+        menuTanimla.add(jmDaire);
 
-        jMenuItem1.setText("Kisi Guncelle");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        menuKisi.add(jMenuItem1);
-
-        menuBar.add(menuKisi);
-
-        jMenu1.setText("Makbuz");
-        menuBar.add(jMenu1);
+        menuBar.add(menuTanimla);
 
         setJMenuBar(menuBar);
 
@@ -143,34 +123,25 @@ public class MainFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jmCikisActionPerformed
 
-    private void jmDaireEkleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmDaireEkleActionPerformed
+    private void jmDaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmDaireActionPerformed
         // TODO add your handling code here:
-        JIFrame jifDaire = new JIFrame(260, 360, new PanelDaireEkle(), "Daire Kayit");
-        this.desktopPane.add(jifDaire);
-    }//GEN-LAST:event_jmDaireEkleActionPerformed
-
-    private void jmDaireGuncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmDaireGuncelleActionPerformed
-        // TODO add your handling code here:
-        JIFrame jifDaire = new JIFrame(260, 360, new PanelDaireGuncelle(), "Daire Guncelle");
-        this.desktopPane.add(jifDaire);
-    }//GEN-LAST:event_jmDaireGuncelleActionPerformed
+        this.desktopPane.add(new JIFrame(260, 360, new PanelDaire(), "Daire Tanimla"));
+    }//GEN-LAST:event_jmDaireActionPerformed
 
     private void jmHakkindaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHakkindaActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, this.getTitle());
     }//GEN-LAST:event_jmHakkindaActionPerformed
 
-    private void jmKisiEkleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmKisiEkleActionPerformed
+    private void jmGiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGiderActionPerformed
         // TODO add your handling code here:
-        JIFrame jifDaire = new JIFrame(260, 210, new PanelKisiEkle(), "Kisi Ekle");
-        this.desktopPane.add(jifDaire);
-    }//GEN-LAST:event_jmKisiEkleActionPerformed
+        desktopPane.add(new JIFrame(230, 170, new PanelGider(), "Gider Tanimlama"));
+    }//GEN-LAST:event_jmGiderActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmKisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmKisiActionPerformed
         // TODO add your handling code here:
-        JIFrame jifDaire = new JIFrame(300, 240, new PanelKisiGuncelle(), "Kisi Bilgi Guncelle");
-        this.desktopPane.add(jifDaire);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        desktopPane.add(new JIFrame(320, 355, new PanelKisi(), "Kisi Tanimlama"));
+    }//GEN-LAST:event_jmKisiActionPerformed
 
     public static void durumMesaji (String mesaj) {
         lblDurum.setText(mesaj);
@@ -213,18 +184,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jmCikis;
-    private javax.swing.JMenuItem jmDaireEkle;
-    private javax.swing.JMenuItem jmDaireGuncelle;
+    private javax.swing.JMenuItem jmDaire;
+    private javax.swing.JMenuItem jmGider;
     private javax.swing.JMenuItem jmHakkinda;
-    private javax.swing.JMenuItem jmKisiEkle;
+    private javax.swing.JMenuItem jmKisi;
     public static javax.swing.JLabel lblDurum;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu menuDaire;
-    private javax.swing.JMenu menuKisi;
     private javax.swing.JMenu menuProgram;
+    private javax.swing.JMenu menuTanimla;
     // End of variables declaration//GEN-END:variables
 
 }

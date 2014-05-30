@@ -3,22 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ays.forms;
+package com.ays.z_unused;
 
 import com.ays.databaseop.DBConn;
 import com.ays.entity.Kisi;
+import com.ays.forms.MainFrame;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 
 /**
 
  @author metin
  */
-public class PanelKisiEkle extends javax.swing.JPanel {
+public class PanelKisiGuncelle extends javax.swing.JPanel {
 
     /**
      Creates new form PanelKisi
      */
-    public PanelKisiEkle () {
+    public PanelKisiGuncelle () {
         initComponents();
+        DBConn baglanti = new DBConn();
+        cmbTCKimlik.setModel(comboBoxDoldur(baglanti));
+        cmbTCKimlikActionPerformed(null);
+    }
+
+    private DefaultComboBoxModel comboBoxDoldur (DBConn baglanti) {
+        // Bu metod PanelDaireGuncelle.java ekranindaki cmbDaireNo'nun icini doldurmak icindir.
+        DefaultComboBoxModel cmbxModel = new DefaultComboBoxModel();
+        ArrayList<Kisi> kisiler = baglanti.getAllKisi();
+        for (Kisi d : kisiler) {
+            cmbxModel.addElement(d.getTCKimlik());
+        }
+        return cmbxModel;
     }
 
     /**
@@ -31,8 +47,8 @@ public class PanelKisiEkle extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cmbTCKimlik = new javax.swing.JComboBox();
         lblTCKimlik = new javax.swing.JLabel();
-        txtTCKimlik = new javax.swing.JTextField();
         lblAd = new javax.swing.JLabel();
         txtAd = new javax.swing.JTextField();
         lblSoyad = new javax.swing.JLabel();
@@ -41,6 +57,15 @@ public class PanelKisiEkle extends javax.swing.JPanel {
         dateDogumTarih = new org.jdesktop.swingx.JXDatePicker();
         btnKaydet = new javax.swing.JButton();
         btnTemizle = new javax.swing.JButton();
+        lblEmail = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+
+        cmbTCKimlik.setEditable(true);
+        cmbTCKimlik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTCKimlikActionPerformed(evt);
+            }
+        });
 
         lblTCKimlik.setText("TC Kimlik No");
 
@@ -49,12 +74,6 @@ public class PanelKisiEkle extends javax.swing.JPanel {
         lblSoyad.setText("Soyadi");
 
         lblDogumTarih.setText("Dogum Tarihi");
-
-        dateDogumTarih.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateDogumTarihActionPerformed(evt);
-            }
-        });
 
         btnKaydet.setText("Kaydet");
         btnKaydet.setPreferredSize(new java.awt.Dimension(100, 28));
@@ -66,31 +85,38 @@ public class PanelKisiEkle extends javax.swing.JPanel {
 
         btnTemizle.setText("Formu Temizle");
 
+        lblEmail.setText("Eposta");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnTemizle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(btnKaydet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTCKimlik)
                             .addComponent(lblAd)
-                            .addComponent(lblSoyad)
-                            .addComponent(lblDogumTarih))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtAd, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                            .addComponent(txtTCKimlik, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                            .addComponent(txtSoyad, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                            .addComponent(dateDogumTarih, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnTemizle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnKaydet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblSoyad))
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAd)
+                            .addComponent(txtSoyad)
+                            .addComponent(cmbTCKimlik, 0, 1, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDogumTarih)
+                            .addComponent(lblEmail))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEmail)
+                            .addComponent(dateDogumTarih, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,7 +124,7 @@ public class PanelKisiEkle extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTCKimlik)
-                    .addComponent(txtTCKimlik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbTCKimlik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAd)
@@ -111,7 +137,11 @@ public class PanelKisiEkle extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDogumTarih)
                     .addComponent(dateDogumTarih, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmail)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnKaydet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTemizle))
@@ -119,31 +149,38 @@ public class PanelKisiEkle extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cmbTCKimlikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTCKimlikActionPerformed
+        // TODO add your handling code here:
+        Kisi kisi = new DBConn().getKisi((String) cmbTCKimlik.getSelectedItem());
+        txtAd.setText(kisi.getAd());
+        txtSoyad.setText(kisi.getSoyad());
+        dateDogumTarih.setDate(kisi.getDogumTarih());
+        txtEmail.setText(kisi.getEmail());
+    }//GEN-LAST:event_cmbTCKimlikActionPerformed
+
     private void btnKaydetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKaydetActionPerformed
         // TODO add your handling code here:
-        java.util.Date utilDate = dateDogumTarih.getDate(); // dateDogumTarih'ten util alip util date yaratiyor.
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // util(long) ile sql date yaratip constructora veriyor
-        Kisi kisi = new Kisi(txtTCKimlik.getText(), txtAd.getText(), txtSoyad.getText(), sqlDate);
+        java.util.Date utilDate = dateDogumTarih.getDate(); // dateDogumTarih.getDate()'ten java.util.Date alip utilDate yaratiyor.
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // utilDate.getTime() ile java.sql.Date yaratip Kisi'nin constructor'ina veriyor
+        Kisi kisi = new Kisi(cmbTCKimlik.getSelectedItem().toString(), txtAd.getText(), txtSoyad.getText(), sqlDate, txtEmail.getText());
         DBConn connection = new DBConn();
-        int sonuc = connection.insertKisi(kisi);
-        MainFrame.durumMesaji((sonuc == 1 ? "Kisi kayidi olusturuldu" : "Kisi kayidi\nbasarisiz!"));
+        int sonuc = connection.updateKisi(kisi);
+        MainFrame.durumMesaji((sonuc == 1 ? "Kisi kayidi guncellendi." : "Kisi kayidi guncelleme basarisiz!"));
     }//GEN-LAST:event_btnKaydetActionPerformed
 
-    private void dateDogumTarihActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateDogumTarihActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_dateDogumTarihActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKaydet;
     private javax.swing.JButton btnTemizle;
+    private javax.swing.JComboBox cmbTCKimlik;
     private org.jdesktop.swingx.JXDatePicker dateDogumTarih;
     private javax.swing.JLabel lblAd;
     private javax.swing.JLabel lblDogumTarih;
+    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblSoyad;
     private javax.swing.JLabel lblTCKimlik;
     private javax.swing.JTextField txtAd;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtSoyad;
-    private javax.swing.JTextField txtTCKimlik;
     // End of variables declaration//GEN-END:variables
 }

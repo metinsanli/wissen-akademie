@@ -17,15 +17,25 @@ public class Kisi {
     private String ad;
     private String soyad;
     private Date dogumTarih;
+    private String email;
+
+    public String getEmail () {
+        return email;
+    }
+
+    public void setEmail (String email) {
+        this.email = email;
+    }
 
     public Kisi () {
     } // end constructor DEFAULT
 
-    public Kisi (String tc, String ad, String soyad, Date dogum) {
+    public Kisi (String tc, String ad, String soyad, Date dogum, String email) {
         this.TCKimlik = tc;
         this.ad = ad;
         this.soyad = soyad;
         this.dogumTarih = dogum;
+        this.email = email;
     }
 
     public String getTCKimlik () {
