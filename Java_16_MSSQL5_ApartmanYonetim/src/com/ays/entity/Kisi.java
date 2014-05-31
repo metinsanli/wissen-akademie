@@ -18,6 +18,53 @@ public class Kisi {
     private String soyad;
     private Date dogumTarih;
     private String email;
+    //
+    private String daireNo;
+    private boolean sahiplik;
+    //
+    private String originalTC;
+
+    public Kisi (String tc, String ad, String soyad, Date dogum, String email) {
+        this.TCKimlik = tc;
+        this.ad = ad;
+        this.soyad = soyad;
+        this.dogumTarih = dogum;
+        this.email = email;
+    }
+
+    public Kisi (String tc, String ad, String soyad, Date dogum, String email, String daireNo, boolean sahiplikDurumu) {
+        this.TCKimlik = tc;
+        this.ad = ad;
+        this.soyad = soyad;
+        this.dogumTarih = dogum;
+        this.email = email;
+        this.daireNo = daireNo;
+        this.sahiplik = sahiplikDurumu;
+    }
+
+    public String getOriginalTC () {
+        return originalTC;
+    }
+
+    public void setOriginalTC (String originalTC) {
+        this.originalTC = originalTC;
+    }
+
+    public String getDaireNo () {
+        return daireNo;
+    }
+
+    public void setDaireNo (String daireNo) {
+        this.daireNo = daireNo;
+    }
+
+    public boolean isSahiplik () {
+        return sahiplik;
+    }
+
+    public void setSahiplik (boolean sahiplik) {
+        this.sahiplik = sahiplik;
+    }
 
     public String getEmail () {
         return email;
@@ -29,14 +76,6 @@ public class Kisi {
 
     public Kisi () {
     } // end constructor DEFAULT
-
-    public Kisi (String tc, String ad, String soyad, Date dogum, String email) {
-        this.TCKimlik = tc;
-        this.ad = ad;
-        this.soyad = soyad;
-        this.dogumTarih = dogum;
-        this.email = email;
-    }
 
     public String getTCKimlik () {
         return TCKimlik;

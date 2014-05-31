@@ -45,7 +45,7 @@
                               <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="txtemail" max="32767" attributes="0"/>
-                                  <Component id="dateDogumTarih" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="dateDogumTarih" alignment="0" pref="180" max="32767" attributes="0"/>
                                   <Component id="txtSoyad" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtAd" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtTCKimlik" alignment="0" max="32767" attributes="0"/>
@@ -53,11 +53,11 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="24" max="32767" attributes="0"/>
-                              <Component id="jButton1" min="-2" pref="71" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnSil" min="-2" pref="71" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnKaydet" min="-2" pref="72" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="btnKaydet" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -113,7 +113,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnTemizle" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnKaydet" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSil" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -132,6 +132,9 @@
           <Connection code="cmbKisiListesiDoldur()" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbKisiBilgileriActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTCKimlik">
       <Properties>
@@ -162,28 +165,6 @@
     <Component class="org.jdesktop.swingx.JXDatePicker" name="dateDogumTarih">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateDogumTarihActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnKaydet">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Kaydet"/>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[100, 28]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKaydetActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnTemizle">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Temizle"/>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[59, 28]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTemizleActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblEmail">
@@ -221,10 +202,32 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnKaydet">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Kaydet"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[100, 28]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKaydetActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnTemizle">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Temizle"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTemizleActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSil">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sil"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSilActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -231,20 +231,30 @@ public class PanelDaire extends javax.swing.JPanel {
 
     private void btnSilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSilActionPerformed
         // TODO add your handling code here:
+
         Daire silinecekDaire = new Daire(txtDaireNo.getText(), Integer.parseInt(txtMetreKare.getText()), Integer.parseInt(txtKatNo.getText()), txtCephe.getText(), txtOdaSayisi.getText(), ckbEbeveynBanyo.isSelected(), Integer.parseInt(txtBalkonSayisi.getText()), ckbDublex.isSelected());
+
         if (cmbDaireNo.getSelectedIndex() != 0) {
+
             int onay = JOptionPane.showConfirmDialog(btnSil, "Sectiginiz \"Daire\"ye ait bilgiler silinecektir!\nEminmisiniz ?", "Silme Onayi", 0, 0);
+
             if (onay == 0) {
+
                 new DBConn().deleteDaire(silinecekDaire);
+
             }
+
         } else {
+
             MainFrame.durumMesaji("Silmek icin bir daire secmelisiniz!");
+
         }
+
         cmbDaireNo.setModel(comboBoxDoldur());
     }//GEN-LAST:event_btnSilActionPerformed
 
     private DefaultComboBoxModel comboBoxDoldur () {
-        // Bu metod PanelDaireGuncelle.java ekranindaki cmbDaireNo'nun icini doldurmak icindir.
+        // Bu metod PanelDaire.java ekranindaki cmbDaireNo'nun icini doldurmak icindir.
         DBConn baglanti = new DBConn();
         DefaultComboBoxModel cmbxModel = new DefaultComboBoxModel();
         ArrayList<Daire> daireler = baglanti.getAllDaire();

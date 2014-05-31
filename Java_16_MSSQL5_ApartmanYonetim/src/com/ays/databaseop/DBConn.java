@@ -53,6 +53,8 @@ public class DBConn {
 
             result = insert.executeUpdate(); // daire(Daire) nesnesinden gelen
 
+            MainFrame.durumMesaji("Kisi bilgisi kaydedildi.");
+
         } catch (SQLException ex) {
             if (ex.getErrorCode() == 2627) {
                 MainFrame.durumMesaji("Eklediginiz kayit zaten var!");
@@ -96,6 +98,29 @@ public class DBConn {
         return result;
     }
 
+    public int deleteKisi (Kisi kisi) {
+
+        int result = 0;
+
+        try {
+
+            PreparedStatement delete = connection.prepareStatement("DELETE FROM [dbApartman].[dbo].[tblKisi]"
+                    + " WHERE [TCKimlikNo] = ?");
+
+            delete.setString(1, kisi.getTCKimlik());
+
+            result = delete.executeUpdate();
+
+            MainFrame.durumMesaji(kisi.getAd() + " " + kisi.getSoyad() + " isimli kisi kayidi silindi.");
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Hata olustu!\n" + ex.getMessage());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
     public ArrayList<Kisi> getAllKisi () {
         ArrayList<Kisi> kisiler = new ArrayList<>();
         PreparedStatement selectTumKisiler;
@@ -123,19 +148,25 @@ public class DBConn {
         Kisi kisi = new Kisi();
         try {
 
-            PreparedStatement sorgu = connection.prepareStatement("SELECT * FROM [tblKisi]"
-                    + " WHERE [TCKimlikNo] LIKE ?");
+            PreparedStatement sorgu = connection.prepareStatement("SELECT tblKisi.TCKimlikNo, tblKisi.Adi, tblKisi.Soyadi, tblKisi.DogumTarihi, tblKisi.Email, tblKisiDaire.DaireNo, tblKisiDaire.SahiplikDurumu"
+                    + " FROM tblKisi LEFT OUTER JOIN tblKisiDaire ON tblKisi.TCKimlikNo = tblKisiDaire.TCKimlikNo"
+                    + " WHERE [tblKisi].[TCKimlikNo] LIKE ?");
             sorgu.setString(1, tckno);
+
             veri = sorgu.executeQuery();
+
             while (veri.next()) {
                 kisi.setTCKimlik(veri.getString("TCKimlikNo"));
                 kisi.setAd(veri.getString("Adi"));
                 kisi.setSoyad(veri.getString("Soyadi"));
                 kisi.setDogumTarih(veri.getDate("DogumTarihi"));
                 kisi.setEmail(veri.getString("Email"));
+                kisi.setDaireNo(veri.getString("DaireNo"));
+                kisi.setSahiplik(veri.getBoolean("SahiplikDurumu"));
             }
         } catch (SQLException ex) {
             JOptionPane.showConfirmDialog(null, ex.getMessage() + "\nHata Kodu : " + ex.getErrorCode());
+            ex.printStackTrace();
         } finally {
             close();
         }

@@ -39,7 +39,7 @@ public class DBCommit {
         }
     }
 
-    public int insertKisiDaire (Kisi kisi, String daireNo, boolean sahiplikDurumu) {
+    public int insertKisiDaire (Kisi kisi) {
 
         int result = 0;
         try {
@@ -60,13 +60,15 @@ public class DBCommit {
                     + " VALUES ( ?, ?, ? )");
 
             insertKisiDaire.setString(1, kisi.getTCKimlik());
-            insertKisiDaire.setString(2, daireNo);
-            insertKisiDaire.setBoolean(3, sahiplikDurumu);
+            insertKisiDaire.setString(2, kisi.getDaireNo());
+            insertKisiDaire.setBoolean(3, kisi.isSahiplik());
 
             result = insertKisi.executeUpdate();
             result = insertKisiDaire.executeUpdate();
 
-            connection.commit(); // Iki tabloya yaziliyor..
+            connection.commit(); // [tblKisi] ve [tblKisiDaire] IKI TABLOYA YAZILIYOR..
+
+            MainFrame.durumMesaji("Kisi bilgileri daire bilgisiyle kaydedildi.");
 
         } catch (SQLException ex) {
             if (ex.getErrorCode() == 2627) {
@@ -76,7 +78,7 @@ public class DBCommit {
             }
 
             try {
-                connection.rollback();// SORUN OLURSA YAZILAN VERI GERI ALINACAK
+                connection.rollback();// YAZMADA HATA OLURSA YAZILAN VERI GERI ALINACAK
             } catch (SQLException ex1) {
                 JOptionPane.showMessageDialog(null, ex1.getMessage() + "\nHata Kodu : " + ex1.getErrorCode());
             }
