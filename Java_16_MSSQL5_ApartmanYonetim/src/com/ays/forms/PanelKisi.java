@@ -5,7 +5,6 @@
  */
 package com.ays.forms;
 
-import com.ays.databaseop.DBCommit;
 import com.ays.databaseop.DBConn;
 import com.ays.entity.Daire;
 import com.ays.entity.Kisi;
@@ -20,6 +19,7 @@ import javax.swing.JOptionPane;
 public class PanelKisi extends javax.swing.JPanel {
 
     private ArrayList<String> TCKimlikNo;
+    private ArrayList<Kisi> kisiler;
 
     /**
      Creates new form PanelKisi
@@ -39,7 +39,7 @@ public class PanelKisi extends javax.swing.JPanel {
     private void initComponents() {
 
         lblSec = new javax.swing.JLabel();
-        cmbKisiBilgileri = new javax.swing.JComboBox();
+        cmbAdiSoyadi = new javax.swing.JComboBox();
         lblTCKimlik = new javax.swing.JLabel();
         txtTCKimlik = new javax.swing.JTextField();
         lblAd = new javax.swing.JLabel();
@@ -60,10 +60,10 @@ public class PanelKisi extends javax.swing.JPanel {
 
         lblSec.setText("Sec");
 
-        cmbKisiBilgileri.setModel(cmbKisiListesiDoldur());
-        cmbKisiBilgileri.addActionListener(new java.awt.event.ActionListener() {
+        cmbAdiSoyadi.setModel(getModelAdSoyad());
+        cmbAdiSoyadi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbKisiBilgileriActionPerformed(evt);
+                cmbAdiSoyadiActionPerformed(evt);
             }
         });
 
@@ -85,7 +85,7 @@ public class PanelKisi extends javax.swing.JPanel {
 
         lblDaireNo.setText("Daire No");
 
-        cmbDaireNo.setModel(cmbDaireNoDoldur());
+        cmbDaireNo.setModel(getModelDaireNo());
 
         lblDurum.setText("Durumu");
 
@@ -146,7 +146,7 @@ public class PanelKisi extends javax.swing.JPanel {
                                     .addComponent(txtSoyad, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtAd, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtTCKimlik, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbKisiBilgileri, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(cmbAdiSoyadi, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSil, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,7 +160,7 @@ public class PanelKisi extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbKisiBilgileri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbAdiSoyadi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSec))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -205,23 +205,19 @@ public class PanelKisi extends javax.swing.JPanel {
         java.util.Date utilDate = dateDogumTarih.getDate(); // dateDogumTarih'ten util.Date alip utilDate isimli nesneyi yaratiyor.
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // utilDate.getTime() metodu ile sqlDate'i yaratip kisi'nin constructor'ina ekleniyor.
 
-        Kisi kisi = new Kisi(txtTCKimlik.getText(), txtAd.getText(), txtSoyad.getText(), sqlDate, txtemail.getText(), cmbDaireNo.getSelectedItem().toString(), cmbDurum.getSelectedItem().toString().equals("Sahibi"));
+        Kisi kisi = new Kisi(TCKimlikNo.get(cmbAdiSoyadi.getSelectedIndex()).toString(), txtTCKimlik.getText(), txtAd.getText(), txtSoyad.getText(), sqlDate, txtemail.getText(), "01", false);
 
-        if (cmbDaireNo.getSelectedIndex() == 0 && cmbDurum.getSelectedIndex() != 0) {
+        if (cmbDaireNo.getSelectedIndex() == 0) {
 
-            new DBCommit().insertKisiDaire(kisi);
-
-        } else if (cmbDaireNo.getSelectedIndex() == 0 && cmbDurum.getSelectedIndex() == 0) {
-
-            new DBConn().insertKisi(kisi);
+            new DBConn().insertKisi(kisi); // KISI EKLENECEK
 
         } else if (cmbDaireNo.getSelectedIndex() != 0) {
 
-            new DBConn().updateKisi(kisi);
+            new DBConn().updateKisi(kisi); // SADECE KISI GUNCELLENECEK !!! DAIRE GUNCELLEME DE EKLENECEK
 
         }
 
-        cmbKisiBilgileri.setModel(cmbKisiListesiDoldur());
+        cmbAdiSoyadi.setModel(getModelAdSoyad());
 
     }//GEN-LAST:event_btnKaydetActionPerformed
 
@@ -233,6 +229,7 @@ public class PanelKisi extends javax.swing.JPanel {
     private void btnTemizleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTemizleActionPerformed
         // TODO add your handling code here:
         // Tum alanlari sifirla.
+        cmbAdiSoyadi.setSelectedIndex(0);
         txtTCKimlik.setText(null);
         txtAd.setText(null);
         txtSoyad.setText(null);
@@ -242,18 +239,12 @@ public class PanelKisi extends javax.swing.JPanel {
         cmbDurum.setSelectedIndex(0);
     }//GEN-LAST:event_btnTemizleActionPerformed
 
-    private void cmbKisiBilgileriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbKisiBilgileriActionPerformed
+    private void cmbAdiSoyadiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAdiSoyadiActionPerformed
         // TODO add your handling code here:
-        if (cmbKisiBilgileri.getSelectedIndex() > 0) {
-            String tckNo = "";
-            ArrayList<Kisi> kisiler = new DBConn().getAllKisi();
-            String[] adSoyad = cmbKisiBilgileri.getSelectedItem().toString().split(" ");
-            for (Kisi temp : kisiler) {
-                if (adSoyad[0].equals(temp.getAd()) && adSoyad[1].equals(temp.getSoyad())) {
-                    tckNo = temp.getTCKimlik();
-                }
-            }
-            Kisi kisi = new DBConn().getKisi(tckNo);
+
+        if (cmbAdiSoyadi.getSelectedIndex() > 0) {
+            // TC KIMLIK NOSUNA GORE KISIYI VERI TABANINDAN BUL.
+            Kisi kisi = new DBConn().getKisi(TCKimlikNo.get(cmbAdiSoyadi.getSelectedIndex()).toString());
             // ALANLARA KISI BILGILARINI YAZDIR.
             txtTCKimlik.setText(kisi.getTCKimlik());
             txtAd.setText(kisi.getAd());
@@ -261,25 +252,33 @@ public class PanelKisi extends javax.swing.JPanel {
             dateDogumTarih.setDate(kisi.getDogumTarih());
             txtemail.setText(kisi.getEmail());
             cmbDaireNo.setSelectedItem(kisi.getDaireNo());
-            cmbDurum.setSelectedItem(kisi.isSahiplik() == true ? "Sahibi" : "Kiraci");
+            if (kisi.isSahiplik()) {
+                cmbDurum.setSelectedItem(1);
+            } else if (!kisi.isSahiplik()) {
+                cmbDurum.setSelectedIndex(2);
+            } else {
+                cmbDurum.setSelectedIndex(0);
+            }
+            //JOptionPane.showMessageDialog(null, TCKimlikNo.get(cmbAdiSoyadi.getSelectedIndex()).toString());
+
         } else {
-            btnTemizleActionPerformed(null); // Eger comboboxta < Yeni > secilmisse alanmari temizle.
+
+            btnTemizleActionPerformed(null); // Eger comboboxta < Yeni > secilmisse alanlari temizle.
+
         }
-    }//GEN-LAST:event_cmbKisiBilgileriActionPerformed
+    }//GEN-LAST:event_cmbAdiSoyadiActionPerformed
 
     private void btnSilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSilActionPerformed
         // TODO add your handling code here:
 
-        Kisi kisi = new DBConn().getKisi(TCKimlikNo.get(cmbKisiBilgileri.getSelectedIndex()));
-
-        if (cmbKisiBilgileri.getSelectedIndex() != 0) {
+        if (cmbAdiSoyadi.getSelectedIndex() != 0) {
 
             int onay = JOptionPane.showConfirmDialog(btnSil, "Sectiginiz \"Kisi\"ye ait bilgiler silinecektir!\nEminmisiniz ?", "Silme Onayi", 0, 0);
 
             if (onay == 0) {
 
-                new DBConn().deleteKisi(kisi);
-                cmbKisiBilgileri.setModel(cmbKisiListesiDoldur());
+                new DBConn().deleteKisi(new Kisi(TCKimlikNo.get(cmbAdiSoyadi.getSelectedIndex()), "", "", "", null, "", "", true));
+                cmbAdiSoyadi.setModel(getModelAdSoyad());
                 btnTemizleActionPerformed(null);
 
             }
@@ -291,9 +290,13 @@ public class PanelKisi extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSilActionPerformed
 
-    public DefaultComboBoxModel cmbKisiListesiDoldur () {
-        TCKimlikNo = new ArrayList<String>();
-        ArrayList<Kisi> kisiler = new DBConn().getAllKisi();
+    private DefaultComboBoxModel getModelAdSoyad () {
+        if (TCKimlikNo != null) {
+            TCKimlikNo.clear();
+        } else {
+            TCKimlikNo = new ArrayList<String>();
+        }
+        getTCKimlikNoAll();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         model.addElement("< Yeni >");
         TCKimlikNo.add(" ");
@@ -304,7 +307,7 @@ public class PanelKisi extends javax.swing.JPanel {
         return model;
     }
 
-    public DefaultComboBoxModel cmbDaireNoDoldur () {
+    private DefaultComboBoxModel getModelDaireNo () {
         // DAIRENO COMBOBOX I DOLDURUYOR
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         ArrayList<Daire> daireler = new DBConn().getAllDaire();
@@ -315,13 +318,17 @@ public class PanelKisi extends javax.swing.JPanel {
         return model;
     }
 
+    private void getTCKimlikNoAll () {
+        kisiler = new DBConn().getAllKisi();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKaydet;
     private javax.swing.JButton btnSil;
     private javax.swing.JButton btnTemizle;
+    private javax.swing.JComboBox cmbAdiSoyadi;
     private javax.swing.JComboBox cmbDaireNo;
     private javax.swing.JComboBox cmbDurum;
-    private javax.swing.JComboBox cmbKisiBilgileri;
     private org.jdesktop.swingx.JXDatePicker dateDogumTarih;
     private javax.swing.JLabel lblAd;
     private javax.swing.JLabel lblDaireNo;

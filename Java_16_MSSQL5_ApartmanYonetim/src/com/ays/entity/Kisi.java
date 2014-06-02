@@ -21,8 +21,7 @@ public class Kisi {
     //
     private String daireNo;
     private boolean sahiplik;
-    //
-    private String originalTC;
+    private String PROTCNO; // UPDATE ve DELETE islemlerinde kullanilacak.
 
     public Kisi (String tc, String ad, String soyad, Date dogum, String email) {
         this.TCKimlik = tc;
@@ -32,7 +31,7 @@ public class Kisi {
         this.email = email;
     }
 
-    public Kisi (String tc, String ad, String soyad, Date dogum, String email, String daireNo, boolean sahiplikDurumu) {
+    public Kisi (String orjinalTC, String tc, String ad, String soyad, Date dogum, String email, String daireNo, boolean sahiplikDurumu) {
         this.TCKimlik = tc;
         this.ad = ad;
         this.soyad = soyad;
@@ -40,14 +39,15 @@ public class Kisi {
         this.email = email;
         this.daireNo = daireNo;
         this.sahiplik = sahiplikDurumu;
+        this.PROTCNO = orjinalTC;
     }
 
-    public String getOriginalTC () {
-        return originalTC;
+    public String getPROTCNO () {
+        return PROTCNO;
     }
 
-    public void setOriginalTC (String originalTC) {
-        this.originalTC = originalTC;
+    public void setPROTCNO (String PROTCNO) {
+        this.PROTCNO = PROTCNO;
     }
 
     public String getDaireNo () {

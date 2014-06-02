@@ -3,7 +3,7 @@
     <type>org.netbeans.modules.java.j2seproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
-            <name>Java_17_MSSQL6_AYS</name>
+            <name>Java_16_MSSQL5_ApartmanYonetim</name>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

@@ -53,7 +53,7 @@ public class DBConn {
 
             result = insert.executeUpdate(); // daire(Daire) nesnesinden gelen
 
-            MainFrame.durumMesaji("Kisi bilgisi kaydedildi.");
+            MainFrame.durumMesaji(kisi.getAd() + " " + kisi.getSoyad() + " bilgileri kaydedildi.");
 
         } catch (SQLException ex) {
             if (ex.getErrorCode() == 2627) {
@@ -73,21 +73,24 @@ public class DBConn {
 
         try {
 
-            PreparedStatement update = connection.prepareStatement("UPDATE [tblKisi]"
-                    + " SET [Adi] = ?, [Soyadi] = ?, [DogumTarihi] = CONVERT (DATE , ? , 104), [Email] = ?"
-                    + " WHERE [TCKimlikNo] = ?");
-            // Eger SQL SERVER'in Region and Language ayarlari English (2014-01-12) format
+            PreparedStatement update = connection.prepareStatement("UPDATE dbo.tblKisi"
+                    + " SET TCKimlikNo = ?, Adi = ?, Soyadi = ?, DogumTarihi = ?, Email = ?"
+                    + " WHERE TCKimlikNo = ?");
+            // Eger SQL SERVER'in Region and Language ayarlari "English (2014-01-12)" format
             // olarak ayarliysa update.setDate(3, kisi.getDogumTarih()); satirinin 
-            // verdigi Turkish (12.01.2014) tarih formati CONVERT (DATE , ? , 104) ile English
+            // verdigi "Turkish (12.01.2014)" tarih formati CONVERT (DATE , ? , 104) ile English
             // formatina cevrilecektir.
 
-            update.setString(1, kisi.getAd());
-            update.setString(2, kisi.getSoyad());
-            update.setDate(3, kisi.getDogumTarih());
-            update.setString(4, kisi.getEmail());
-            update.setString(5, kisi.getTCKimlik());
+            update.setString(1, kisi.getTCKimlik());
+            update.setString(2, kisi.getAd());
+            update.setString(3, kisi.getSoyad());
+            update.setDate(4, kisi.getDogumTarih());
+            update.setString(5, kisi.getEmail());
+            update.setString(6, kisi.getPROTCNO());
 
             result = update.executeUpdate();
+
+            MainFrame.durumMesaji(kisi.getAd() + " " + kisi.getSoyad() + " bilgileri guncellendi.");
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Hata olustu!\n" + ex.getMessage());
@@ -107,12 +110,12 @@ public class DBConn {
             PreparedStatement delete = connection.prepareStatement("DELETE FROM [dbApartman].[dbo].[tblKisi]"
                     + " WHERE [TCKimlikNo] = ?");
 
-            delete.setString(1, kisi.getTCKimlik());
+            delete.setString(1, kisi.getPROTCNO());
 
             result = delete.executeUpdate();
 
             MainFrame.durumMesaji(kisi.getAd() + " " + kisi.getSoyad() + " isimli kisi kayidi silindi.");
-
+            //JOptionPane.showMessageDialog(null, kisi.get);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Hata olustu!\n" + ex.getMessage());
         } finally {
@@ -125,10 +128,11 @@ public class DBConn {
         ArrayList<Kisi> kisiler = new ArrayList<>();
         PreparedStatement selectTumKisiler;
         try {
-            selectTumKisiler = connection.prepareStatement("SELECT * FROM [tblKisi] ORDER BY [Adi]");
+            selectTumKisiler = connection.prepareStatement("SELECT * FROM [tblKisi] ORDER BY [Adi], [Soyadi]");
             veri = selectTumKisiler.executeQuery();
             while (veri.next()) {
                 Kisi kisi = new Kisi();
+                kisi.setPROTCNO(veri.getString("TCKimlikNo"));
                 kisi.setTCKimlik(veri.getString("TCKimlikNo"));
                 kisi.setAd(veri.getString("Adi"));
                 kisi.setSoyad(veri.getString("Soyadi"));
@@ -157,6 +161,7 @@ public class DBConn {
 
             while (veri.next()) {
                 kisi.setTCKimlik(veri.getString("TCKimlikNo"));
+                kisi.setPROTCNO(veri.getString("TCKimlikNo"));
                 kisi.setAd(veri.getString("Adi"));
                 kisi.setSoyad(veri.getString("Soyadi"));
                 kisi.setDogumTarih(veri.getDate("DogumTarihi"));
@@ -330,7 +335,6 @@ public class DBConn {
             result = insert.executeUpdate();
 
             MainFrame.durumMesaji(gider.getAd() + " isimli gider veri tabanina eklendi.");
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "insertGider() Hata olustu!\n" + ex.getMessage());
         } finally {
@@ -346,16 +350,16 @@ public class DBConn {
         try {
 
             PreparedStatement update = connection.prepareStatement("UPDATE [dbApartman].[dbo].[tblGider]"
-                    + " SET [GiderAdi] = ?"
+                    + " SET [GiderKod] = ?, [GiderAdi] = ?"
                     + " WHERE [GiderKod] = ?");
 
-            update.setString(1, gider.getAd());
-            update.setString(2, gider.getKod());
+            update.setString(1, gider.getKod());
+            update.setString(2, gider.getAd());
+            update.setString(3, gider.getPROkod());
 
             result = update.executeUpdate();
 
             MainFrame.durumMesaji(gider.getAd() + " isimli gidere ait bilgiler guncellendi.");
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "updateGider() Hata olustu!\n" + ex.getMessage());
         } finally {
@@ -373,12 +377,11 @@ public class DBConn {
             PreparedStatement update = connection.prepareStatement("DELETE FROM [dbApartman].[dbo].[tblGider]"
                     + " WHERE [GiderKod] = ?");
 
-            update.setString(1, gider.getKod());
+            update.setString(1, gider.getPROkod());
 
             result = update.executeUpdate();
 
             MainFrame.durumMesaji(gider.getAd() + " isimli gider kayidi silindi.");
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "updateGider() Hata olustu!\n" + ex.getMessage());
         } finally {
@@ -398,7 +401,7 @@ public class DBConn {
             veri = sorgu.executeQuery();
 
             while (veri.next()) {
-                Gider gider = new Gider(veri.getString("GiderKod"), veri.getString("GiderAdi"));
+                Gider gider = new Gider(veri.getString("GiderKod"), veri.getString("GiderKod"), veri.getString("GiderAdi"));
                 giderler.add(gider);
             }
 
@@ -423,6 +426,7 @@ public class DBConn {
             veri = sorgu.executeQuery();
 
             while (veri.next()) {
+                gider.setPROkod(veri.getString("GiderKod"));
                 gider.setKod(veri.getString("GiderKod"));
                 gider.setAd(veri.getString("GiderAdi"));
             }

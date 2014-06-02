@@ -13,6 +13,15 @@ public class Gider {
 
     private String kod;
     private String ad;
+    private String PROkod; // UPDATE ve DELETE islemlerinde kullanilacak.
+
+    public String getPROkod () {
+        return PROkod;
+    }
+
+    public void setPROkod (String PROkod) {
+        this.PROkod = PROkod;
+    }
 
     public Gider () {
 
@@ -21,6 +30,12 @@ public class Gider {
     public Gider (String kod, String ad) {
         this.ad = ad;
         this.kod = kod;
+    }
+
+    public Gider (String proKod, String kod, String ad) {
+        this.ad = ad;
+        this.kod = kod;
+        this.PROkod = proKod;
     }
 
     public String getKod () {

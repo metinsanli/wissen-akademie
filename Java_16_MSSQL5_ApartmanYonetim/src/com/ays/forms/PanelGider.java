@@ -17,12 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class PanelGider extends javax.swing.JPanel {
 
+    private ArrayList<String> PROKodlar;
+
     /**
      Creates new form PanelGiderEkle
      */
     public PanelGider () {
         initComponents();
-        cmbGiderKod.setModel(comboBoxDoldur());
+        cmbGiderKod.setModel(getModelGiderler());
     }
 
     /**
@@ -120,46 +122,32 @@ public class PanelGider extends javax.swing.JPanel {
 
     private void btnSilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSilActionPerformed
         // TODO add your handling code here:
-        Gider gider = new Gider(txtKod.getText(), txtAd.getText());
-        if (cmbGiderKod.getSelectedIndex() != 0) {
+        if (cmbGiderKod.getSelectedIndex() != 0) { // Eger combobox ta <yeni> secili degilse mevcut kayitlardan biri secilidir.
             int onay = JOptionPane.showConfirmDialog(btnKaydet, "Sectiginiz \"Gider\" türü silinecektir!\nEminmisiniz ?", "Silme Onayi", 0, 0);
-            //JOptionPane.showMessageDialog(btnKaydet, onay);
             if (onay == 0) {
-                new DBConn().deleteGider(gider);
+                new DBConn().deleteGider(new Gider(txtKod.getText(), txtKod.getText(), txtAd.getText()));
             }
+            cmbGiderKod.setModel(getModelGiderler());
+            txtAd.setText("");
+            txtKod.setText("");
         } else {
             MainFrame.durumMesaji("Silmek icin bir gider secmelisiniz!");
         }
-        cmbGiderKod.setModel(comboBoxDoldur());
     }//GEN-LAST:event_btnSilActionPerformed
 
     private void btnKaydetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKaydetActionPerformed
         // TODO add your handling code here:
-        if (!txtKod.getText().equals("") && !txtAd.getText().equals("")) {
-            Gider yeniGider = new Gider(txtKod.getText(), txtAd.getText());
-            ArrayList<Gider> varOlanGiderler = new DBConn().getAllGider();
+        if (!txtKod.getText().equals("") && !txtAd.getText().equals("")) { // ALANLAR BOS OLMAMALI
 
-            boolean yeniEkle = false;
-
-            // ISLEM AYRIMI : insertGider() VEYA updateGider() calisacak
-            for (Gider temp : varOlanGiderler) {
-
-                if (yeniGider.getKod().equals(temp.getKod())) {
-                    new DBConn().updateGider(yeniGider);
-                    yeniEkle = false;
-                    break;
-                }
-
-                yeniEkle = true;
-
-            }
-
-            if (yeniEkle) {
-                new DBConn().insertGider(yeniGider);
+            if (cmbGiderKod.getSelectedIndex() != 0) {
+                new DBConn().updateGider(new Gider(PROKodlar.get(cmbGiderKod.getSelectedIndex()), txtKod.getText(), txtAd.getText()));
+            } else {
+                new DBConn().insertGider(new Gider(txtKod.getText(), txtAd.getText()));
             }
 
             // ISLEM BITINCE
-            cmbGiderKod.setModel(comboBoxDoldur());
+            cmbGiderKod.setModel(getModelGiderler());
+
         } else {
             JOptionPane.showMessageDialog(null, "Yeni kayit icin \"Gider Kodu\" ve \"Gider Adi\" girilmelidir!");
         } // END IF
@@ -174,14 +162,17 @@ public class PanelGider extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cmbGiderKodActionPerformed
 
-    private DefaultComboBoxModel comboBoxDoldur () {
+    private DefaultComboBoxModel getModelGiderler () {
         // Bu metod PanelDaireGuncelle.java ekranindaki cmbDaireNo'nun icini doldurmak icindir.
         DBConn baglanti = new DBConn();
         DefaultComboBoxModel cmbxModel = new DefaultComboBoxModel();
+        PROKodlar = new ArrayList<String>();
         cmbxModel.addElement("< Yeni >");
+        PROKodlar.add(" ");
         ArrayList<Gider> giderler = baglanti.getAllGider();
         for (Gider d : giderler) {
             cmbxModel.addElement(d.getKod() + " - " + d.getAd());
+            PROKodlar.add(d.getPROkod().toString());
         }
         return cmbxModel;
     }
