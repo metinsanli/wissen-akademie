@@ -1,4 +1,4 @@
-package E2_iterator;
+package E2_IteratorInterface;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +11,7 @@ public class Iterator_Example {
 	public static void main(String args[]) {
 
 		ArrayList<String> al = new ArrayList();
+
 		al.add("CAN");
 		al.add("Ali");
 		al.add("Emre");
@@ -20,6 +21,7 @@ public class Iterator_Example {
 
 		System.out.println("Koleksiyonun ilk hali : ");
 		Iterator itr = al.iterator(); // ITERATOR INTERFACE
+
 		while (itr.hasNext()) {
 			Object element = itr.next();
 			String eleman = (String) element;

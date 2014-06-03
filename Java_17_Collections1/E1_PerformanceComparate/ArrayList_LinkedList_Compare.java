@@ -1,4 +1,4 @@
-package E1_performance;
+package E1_PerformanceComparate;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package E4_comparable;
+package E4_ComparableInterface;
 
 import java.util.Collections;
 import java.util.Vector;
@@ -6,7 +6,7 @@ import java.util.Vector;
 @SuppressWarnings("all")
 public class Vector_Comparable {
 
-	enum konum {
+	enum konum { // KENDI DEGISKEN (VERI) TURUMUZU BELIRLEDIK.
 		HAVADA, YERDE
 	};
 
@@ -25,6 +25,7 @@ public class Vector_Comparable {
 		System.out.println("\nucakFilo listesinin ilk hali : ");
 		for (int index = 0; index < elemanSayisi; index++)
 			System.out.println(ucakFilo.get(index).model);
+		
 		// ucakFilo icerigini sirala
 		Collections.sort(ucakFilo); // sirala yapilabilmesi icin Ucak sinifinin karsilastirilabilir olmasi gerekir.
 		// Karsilastirilabilir olmasi demek Comparable interface'i Ucak sinifina implement edilmis olmasi demektir.
@@ -38,7 +39,7 @@ public class Vector_Comparable {
 		System.out.println("\nucakFilo listesindeki elemanlar duzenlendikten sonra:");
 		for (int index = 0; index < elemanSayisi; index++)
 			System.out.println(ucakFilo.get(index).model + " - " + ucakFilo.elementAt(index).ucakKonum);
-
+		
 	}
 
 	public class Ucak implements Comparable {
