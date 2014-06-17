@@ -1,0 +1,7 @@
+Messi 10
+Ronaldo 7
+Delpiero 11
+Drogba 1
+Nuri 3
+messi 10
+ronaldo 7
