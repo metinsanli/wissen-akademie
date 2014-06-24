@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Sample Registration Form</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h1 style="color: darkred">KAYIT FORMU</h1>
+            <p>Lutfen tüm alanları doldurup Kayıt butonuna basınız.</p>
+            <h:panelGrid columns="4" style="height: 96px;width: 456px;">
+                <h:graphicImage name="fname.png" library="images"/>
+                <h:inputText id="firstNameInputText"/>
+                <h:graphicImage name="lname.png" library="images"/>
+                <h:inputText id="lastNameInputText"/>
+                <h:graphicImage name="email.png" library="images"/>
+                <h:inputText id="emailInputText"/>
+                <h:graphicImage name="phone.png" library="images"/>
+                <h:inputText id="phoneInputText"/>
+            </h:panelGrid>
+            <p><h:graphicImage name="publications.png" library="images"/>
+                <br/>Hangi kitap hakkında bilgi almak istersin?</p>
+            <h:selectOneMenu id="bookSlectionMenu">
+                <f:selectItem itemValue="CHTP" itemLabel="C How to Program"/>
+                <f:selectItem itemValue="CPPHTP" itemLabel="C++ Hot to Program"/>
+                <f:selectItem itemValue="IW3HTP" itemLabel="Internet &amp; World Wide Web Hot to Program"/>
+                <f:selectItem itemValue="JHTP" itemLabel="Java How to Program"/>
+                <f:selectItem itemValue="VBHTP" itemLabel="Visual Basic How to Program"/>
+                <f:selectItem itemValue="VCSHTP" itemLabel="Visual C# How to Program"/>
+            </h:selectOneMenu>
+            <p><h:outputLink value="http://www.kitapyurdu.com/">Bu linkten kitaplar hakkında daha fazla bilgi alabilirsiniz.</h:outputLink> </p>
+            <h:graphicImage name="os.png" library="images"/>
+            <h:selectOneRadio id="osSelectOneRadio">
+                <f:selectItem itemValue="WinVista" itemLabel="Windows Vista"/>
+                <f:selectItem itemValue="Win7" itemLabel="Windows 7"/>
+                <f:selectItem itemValue="OSX" itemLabel="Mac OS X"/>
+                <f:selectItem itemValue="Linux" itemLabel="Linux"/>
+                <f:selectItem itemValue="Other" itemLabel="Other"/>
+            </h:selectOneRadio>
+            <h:commandButton value="Kayıt" label="register" style="width: 100px;"/>
+        </h:form>
+    </h:body>
+</html>
+
