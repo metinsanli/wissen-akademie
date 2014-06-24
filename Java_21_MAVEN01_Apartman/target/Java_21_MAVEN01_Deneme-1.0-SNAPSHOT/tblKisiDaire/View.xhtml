@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblKisiDaireViewDlg" widgetVar="TblKisiDaireViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTblKisiDaireTitle}">
+            <h:form id="TblKisiDaireViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tblKisiDaireController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTblKisiDaireLabel_tblKisiDairePK_sahiplikDurumu}"/>
+                        <p:selectBooleanCheckbox value="#{tblKisiDaireController.selected.tblKisiDairePK.sahiplikDurumu}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTblKisiDaireLabel_tblDaire}"/>
+                        <h:outputText value="#{tblKisiDaireController.selected.tblDaire}" title="#{bundle.ViewTblKisiDaireTitle_tblDaire}"/>
+                        <h:outputText value="#{bundle.ViewTblKisiDaireLabel_tblKisi}"/>
+                        <h:outputText value="#{tblKisiDaireController.selected.tblKisi}" title="#{bundle.ViewTblKisiDaireTitle_tblKisi}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TblKisiDaireViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

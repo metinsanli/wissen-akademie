@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblKisiDaireEditDlg" widgetVar="TblKisiDaireEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTblKisiDaireTitle}">
+            <h:form id="TblKisiDaireEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tblKisiDaireController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTblKisiDaireLabel_tblKisiDairePK_sahiplikDurumu}" for="tblKisiDairePK_sahiplikDurumu" />
+                        <p:selectBooleanCheckbox id="tblKisiDairePK_sahiplikDurumu" value="#{tblKisiDaireController.selected.tblKisiDairePK.sahiplikDurumu}" required="true" requiredMessage="#{bundle.EditTblKisiDaireRequiredMessage_tblKisiDairePK_sahiplikDurumu}"/>
+                        <p:outputLabel value="#{bundle.EditTblKisiDaireLabel_tblDaire}" for="tblDaire" />
+                        <p:selectOneMenu id="tblDaire" value="#{tblKisiDaireController.selected.tblDaire}" required="true" requiredMessage="#{bundle.EditTblKisiDaireRequiredMessage_tblDaire}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblDaireController.itemsAvailableSelectOne}"
+                                           var="tblDaireItem"
+                                           itemValue="#{tblDaireItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTblKisiDaireLabel_tblKisi}" for="tblKisi" />
+                        <p:selectOneMenu id="tblKisi" value="#{tblKisiDaireController.selected.tblKisi}" required="true" requiredMessage="#{bundle.EditTblKisiDaireRequiredMessage_tblKisi}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblKisiController.itemsAvailableSelectOne}"
+                                           var="tblKisiItem"
+                                           itemValue="#{tblKisiItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblKisiDaireController.update}" value="#{bundle.Save}" update="display,:TblKisiDaireListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TblKisiDaireEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TblKisiDaireEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

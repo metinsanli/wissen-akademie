@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblDaireCreateDlg" widgetVar="TblDaireCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTblDaireTitle}">
+            <h:form id="TblDaireCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tblDaireController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTblDaireLabel_daireNo}" for="daireNo" />
+                        <p:inputText id="daireNo" value="#{tblDaireController.selected.daireNo}" title="#{bundle.CreateTblDaireTitle_daireNo}" required="true" requiredMessage="#{bundle.CreateTblDaireRequiredMessage_daireNo}"/>
+                        <p:outputLabel value="#{bundle.CreateTblDaireLabel_metreKare}" for="metreKare" />
+                        <p:inputText id="metreKare" value="#{tblDaireController.selected.metreKare}" title="#{bundle.CreateTblDaireTitle_metreKare}" />
+                        <p:outputLabel value="#{bundle.CreateTblDaireLabel_katNo}" for="katNo" />
+                        <p:inputText id="katNo" value="#{tblDaireController.selected.katNo}" title="#{bundle.CreateTblDaireTitle_katNo}" />
+                        <p:outputLabel value="#{bundle.CreateTblDaireLabel_cephe}" for="cephe" />
+                        <p:inputText id="cephe" value="#{tblDaireController.selected.cephe}" title="#{bundle.CreateTblDaireTitle_cephe}" />
+                        <p:outputLabel value="#{bundle.CreateTblDaireLabel_odaSayisi}" for="odaSayisi" />
+                        <p:inputText id="odaSayisi" value="#{tblDaireController.selected.odaSayisi}" title="#{bundle.CreateTblDaireTitle_odaSayisi}" />
+                        <p:outputLabel value="#{bundle.CreateTblDaireLabel_ebeveynBanyo}" for="ebeveynBanyo" />
+                        <p:selectBooleanCheckbox id="ebeveynBanyo" value="#{tblDaireController.selected.ebeveynBanyo}" />
+                        <p:outputLabel value="#{bundle.CreateTblDaireLabel_balkonSayisi}" for="balkonSayisi" />
+                        <p:inputText id="balkonSayisi" value="#{tblDaireController.selected.balkonSayisi}" title="#{bundle.CreateTblDaireTitle_balkonSayisi}" />
+                        <p:outputLabel value="#{bundle.CreateTblDaireLabel_dublex}" for="dublex" />
+                        <p:selectBooleanCheckbox id="dublex" value="#{tblDaireController.selected.dublex}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblDaireController.create}" value="#{bundle.Save}" update="display,:TblDaireListForm:datalist,:growl" oncomplete="handleSubmit(args,'TblDaireCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TblDaireCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

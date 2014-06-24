@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTblKisiDaireTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TblKisiDaireListForm">
+                <p:panel header="#{bundle.ListTblKisiDaireTitle}">
+                    <p:dataTable id="datalist" value="#{tblKisiDaireController.items}" var="item"
+                                 selectionMode="single" selection="#{tblKisiDaireController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.tblKisiDairePK}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTblKisiDaireTitle_tblKisiDairePK_sahiplikDurumu}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.tblKisiDairePK.sahiplikDurumu}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTblKisiDaireTitle_tblDaire}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tblDaire}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTblKisiDaireTitle_tblKisi}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tblKisi}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tblKisiDaireController.prepareCreate}" update=":TblKisiDaireCreateForm" oncomplete="PF('TblKisiDaireCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TblKisiDaireViewForm" oncomplete="PF('TblKisiDaireViewDialog').show()" disabled="#{empty tblKisiDaireController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TblKisiDaireEditForm" oncomplete="PF('TblKisiDaireEditDialog').show()" disabled="#{empty tblKisiDaireController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tblKisiDaireController.destroy}" update=":growl,datalist" disabled="#{empty tblKisiDaireController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

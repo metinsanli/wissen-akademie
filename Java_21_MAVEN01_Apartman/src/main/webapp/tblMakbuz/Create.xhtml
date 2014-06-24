@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblMakbuzCreateDlg" widgetVar="TblMakbuzCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTblMakbuzTitle}">
+            <h:form id="TblMakbuzCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tblMakbuzController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTblMakbuzLabel_makbuzNo}" for="makbuzNo" />
+                        <p:inputText id="makbuzNo" value="#{tblMakbuzController.selected.makbuzNo}" title="#{bundle.CreateTblMakbuzTitle_makbuzNo}" required="true" requiredMessage="#{bundle.CreateTblMakbuzRequiredMessage_makbuzNo}"/>
+                        <p:outputLabel value="#{bundle.CreateTblMakbuzLabel_ay}" for="ay" />
+                        <p:calendar id="ay" pattern="MM/dd/yyyy HH:mm:ss" value="#{tblMakbuzController.selected.ay}" title="#{bundle.EditTblMakbuzTitle_ay}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTblMakbuzLabel_daireNo}" for="daireNo" />
+                        <p:inputText id="daireNo" value="#{tblMakbuzController.selected.daireNo}" title="#{bundle.CreateTblMakbuzTitle_daireNo}" />
+                        <p:outputLabel value="#{bundle.CreateTblMakbuzLabel_tutari}" for="tutari" />
+                        <p:inputText id="tutari" value="#{tblMakbuzController.selected.tutari}" title="#{bundle.CreateTblMakbuzTitle_tutari}" />
+                        <p:outputLabel value="#{bundle.CreateTblMakbuzLabel_odemeTarihi}" for="odemeTarihi" />
+                        <p:calendar id="odemeTarihi" pattern="MM/dd/yyyy HH:mm:ss" value="#{tblMakbuzController.selected.odemeTarihi}" title="#{bundle.EditTblMakbuzTitle_odemeTarihi}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTblMakbuzLabel_durumu}" for="durumu" />
+                        <p:selectBooleanCheckbox id="durumu" value="#{tblMakbuzController.selected.durumu}" required="true" requiredMessage="#{bundle.EditTblMakbuzRequiredMessage_durumu}"/>
+                        <p:outputLabel value="#{bundle.CreateTblMakbuzLabel_TCKimlikNo}" for="TCKimlikNo" />
+                        <p:selectOneMenu id="TCKimlikNo" value="#{tblMakbuzController.selected.TCKimlikNo}" >
+                            <f:selectItems value="#{tblKisiController.itemsAvailableSelectOne}"
+                                           var="TCKimlikNoItem"
+                                           itemValue="#{TCKimlikNoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblMakbuzController.create}" value="#{bundle.Save}" update="display,:TblMakbuzListForm:datalist,:growl" oncomplete="handleSubmit(args,'TblMakbuzCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TblMakbuzCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

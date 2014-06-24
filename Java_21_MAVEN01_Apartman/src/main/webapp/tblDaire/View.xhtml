@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblDaireViewDlg" widgetVar="TblDaireViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTblDaireTitle}">
+            <h:form id="TblDaireViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tblDaireController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTblDaireLabel_daireNo}"/>
+                        <h:outputText value="#{tblDaireController.selected.daireNo}" title="#{bundle.ViewTblDaireTitle_daireNo}"/>
+                        <h:outputText value="#{bundle.ViewTblDaireLabel_metreKare}"/>
+                        <h:outputText value="#{tblDaireController.selected.metreKare}" title="#{bundle.ViewTblDaireTitle_metreKare}"/>
+                        <h:outputText value="#{bundle.ViewTblDaireLabel_katNo}"/>
+                        <h:outputText value="#{tblDaireController.selected.katNo}" title="#{bundle.ViewTblDaireTitle_katNo}"/>
+                        <h:outputText value="#{bundle.ViewTblDaireLabel_cephe}"/>
+                        <h:outputText value="#{tblDaireController.selected.cephe}" title="#{bundle.ViewTblDaireTitle_cephe}"/>
+                        <h:outputText value="#{bundle.ViewTblDaireLabel_odaSayisi}"/>
+                        <h:outputText value="#{tblDaireController.selected.odaSayisi}" title="#{bundle.ViewTblDaireTitle_odaSayisi}"/>
+                        <h:outputText value="#{bundle.ViewTblDaireLabel_ebeveynBanyo}"/>
+                        <p:selectBooleanCheckbox value="#{tblDaireController.selected.ebeveynBanyo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTblDaireLabel_balkonSayisi}"/>
+                        <h:outputText value="#{tblDaireController.selected.balkonSayisi}" title="#{bundle.ViewTblDaireTitle_balkonSayisi}"/>
+                        <h:outputText value="#{bundle.ViewTblDaireLabel_dublex}"/>
+                        <p:selectBooleanCheckbox value="#{tblDaireController.selected.dublex}" disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TblDaireViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

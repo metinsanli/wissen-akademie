@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblMakbuzViewDlg" widgetVar="TblMakbuzViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTblMakbuzTitle}">
+            <h:form id="TblMakbuzViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tblMakbuzController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTblMakbuzLabel_makbuzNo}"/>
+                        <h:outputText value="#{tblMakbuzController.selected.makbuzNo}" title="#{bundle.ViewTblMakbuzTitle_makbuzNo}"/>
+                        <h:outputText value="#{bundle.ViewTblMakbuzLabel_ay}"/>
+                        <h:outputText value="#{tblMakbuzController.selected.ay}" title="#{bundle.ViewTblMakbuzTitle_ay}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTblMakbuzLabel_daireNo}"/>
+                        <h:outputText value="#{tblMakbuzController.selected.daireNo}" title="#{bundle.ViewTblMakbuzTitle_daireNo}"/>
+                        <h:outputText value="#{bundle.ViewTblMakbuzLabel_tutari}"/>
+                        <h:outputText value="#{tblMakbuzController.selected.tutari}" title="#{bundle.ViewTblMakbuzTitle_tutari}"/>
+                        <h:outputText value="#{bundle.ViewTblMakbuzLabel_odemeTarihi}"/>
+                        <h:outputText value="#{tblMakbuzController.selected.odemeTarihi}" title="#{bundle.ViewTblMakbuzTitle_odemeTarihi}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTblMakbuzLabel_durumu}"/>
+                        <p:selectBooleanCheckbox value="#{tblMakbuzController.selected.durumu}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewTblMakbuzLabel_TCKimlikNo}"/>
+                        <h:outputText value="#{tblMakbuzController.selected.TCKimlikNo}" title="#{bundle.ViewTblMakbuzTitle_TCKimlikNo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TblMakbuzViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
