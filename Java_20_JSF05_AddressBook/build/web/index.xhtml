@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+     <h:head>
+      <title>Address Book</title>
+      <h:outputStylesheet name="style.css" library="css"/>
+   </h:head>
+   <h:body> 
+      <h1>Address Book</h1>
+      <h:form>
+         <p><h:commandButton value="Add Entry" action="addentry"/></p>
+      </h:form>
+      <h:dataTable value="#{addressBean.address}" var="address"
+         rowClasses="oddRows,evenRows" headerClass="header"
+         styleClass="table" cellpadding="5" cellspacing="0">
+         <h:column>
+            <f:facet name="header">First Name</f:facet>
+            #{address.FIRSTNAME}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Last Name</f:facet>
+            #{address.LASTNAME}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Street</f:facet>
+            #{address.STREET}
+         </h:column>
+         <h:column>
+            <f:facet name="header">City</f:facet>
+            #{address.CITY}
+         </h:column>
+         <h:column>
+            <f:facet name="header">State</f:facet>
+            #{address.STATE}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Zip code</f:facet>
+            #{address.ZIP}
+         </h:column>
+      </h:dataTable>
+   </h:body>
+</html>
+
