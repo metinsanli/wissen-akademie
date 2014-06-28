@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24.Haz.2014 21:54:41 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.wissen.entity.TblKisi" table="tblKisi" schema="dbo" catalog="dbApartman">
+        <id name="tckimlikNo" type="serializable">
+            <column name="TCKimlikNo" />
+            <generator class="assigned"></generator>
+        </id>
+        <property name="adi" type="serializable">
+            <column name="Adi" />
+        </property>
+        <property name="soyadi" type="serializable">
+            <column name="Soyadi" />
+        </property>
+        <property name="dogumTarihi" type="date">
+            <column name="DogumTarihi" length="10" />
+        </property>
+        <property name="email" type="serializable">
+            <column name="Email" />
+        </property>
+        <set name="tblKisiDaires" table="tblKisiDaire" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TCKimlikNo" not-null="true" />
+            </key>
+            <one-to-many class="com.wissen.entity.TblKisiDaire" />
+        </set>
+    </class>
+</hibernate-mapping>
